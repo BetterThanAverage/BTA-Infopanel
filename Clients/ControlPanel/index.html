@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>BTA Control Panel</title>
+        <link rel="stylesheet" type="text/css" href="/base.css">
+    </head>
+    <body>
+        <button type="button" onclick="sendUpdateHeart('blue')">Blue</button>
+        <button type="button" onclick="sendUpdateHeart('red')">Red</button>
+        <button type="button" onclick="sendUpdateHeart('yellow')">Yellow</button>
+        <button type="button" onclick="sendUpdateHeart('cracked')">Cracked</button>
+        <input placeholder="Add Player" id="playeradder"/>
+        <button type="button" onclick="addPlayer()">Add</button>
+        <div id="loser"></div>
+        <div id="players"></div>
+        <script type="text/javascript" src="messageController.js"></script>
+    </body>
+</html>
