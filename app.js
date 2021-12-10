@@ -12,7 +12,9 @@ const messageTypes = {
     addPlayer: "addPlayer",
     removePlayer: "removePlayer",
     losePlayer: "losePlayer",
-    refresh: "refresh"
+    refresh: "refresh",
+    triggerPrelims: "triggerPrelims",
+    triggerFinals: "triggerFinals"
 }
 
 var state = {
@@ -35,8 +37,15 @@ wsServer.on('connection', socket => {
             state.currentHeart = data.content;
         }
         else if(data.type === messageTypes.addPlayer){
+            let loser = ""
+            if(state.loser >= 0){
+                loser = state.players[state.loser]
+            }
             state.players.push(data.content);
             state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
+            if(loser){
+                state.loser = state.players.indexOf(loser);
+            }
         }
         else if(data.type === messageTypes.removePlayer){
             state.players.splice(data.content, 1);
@@ -47,6 +56,15 @@ wsServer.on('connection', socket => {
         }
         else if(data.type === messageTypes.losePlayer){
             state.loser = parseInt(data.content);
+        }
+        else if(data.type === messageTypes.triggerPrelims){
+            state.players = ['PRELIMS'];
+            state.loser = 0;
+        }
+        else if(data.type === messageTypes.triggerFinals){
+            state.players.push('FINALS')
+            state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
+            state.loser = state.players.indexOf('FINALS');
         }
         broadcast(state);
     });

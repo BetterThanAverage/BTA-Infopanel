@@ -91,3 +91,10 @@ function removePlayer(index){
 function markLoss(index){
     x.send(JSON.stringify({type: "losePlayer", content: index}));
 }
+
+function triggerPrelims(){
+    x.send(JSON.stringify({type: "triggerPrelims"}));
+}
+function triggerFinals(){
+    x.send(JSON.stringify({type: "triggerFinals"}));
+}
