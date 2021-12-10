@@ -1,0 +1,23 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: xx-large;
+}
+
+#heartImage{
+    width: 120px;
+}
+
+.division {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.division *  {
+    margin-left: auto;
+    margin-right: auto;
+}

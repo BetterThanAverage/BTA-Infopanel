@@ -1,0 +1,33 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: xx-large;
+}
+
+.loser * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loser {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    display: grid;
+}
+.loser p{
+    margin-top: auto;
+}
+.loserbox {
+    margin-bottom: auto;
+    padding: 10px;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+    background-color: #8e8e8e;
+    color: white;
+    width: 150px;
+    display: grid;
+}

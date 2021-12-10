@@ -1,0 +1,21 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: xx-large;
+}
+
+.playersbox {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+.playersbox p{
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    background-color: lightgray;
+}
