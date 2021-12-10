@@ -21,9 +21,9 @@ function updateState(newState){
         newState.players.forEach(player => {
             if(idx !== newState.loser){
                 let div = document.createElement('div');
-                let p = document.createElement('p');
-                p.innerText = player;
-                div.appendChild(p);
+                let span = document.createElement('span');
+                span.innerText = player;
+                div.appendChild(span);
                 let loseButton = document.createElement('button');
                 loseButton.type = 'button';
                 loseButton.innerText = 'Lost';

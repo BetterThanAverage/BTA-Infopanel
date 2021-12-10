@@ -3,14 +3,20 @@
     <head>
         <title>BTA Control Panel</title>
         <link rel="stylesheet" type="text/css" href="/base.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
     <body>
         <button type="button" onclick="sendUpdateHeart('blue')">Blue</button>
         <button type="button" onclick="sendUpdateHeart('red')">Red</button>
         <button type="button" onclick="sendUpdateHeart('yellow')">Yellow</button>
         <button type="button" onclick="sendUpdateHeart('cracked')">Cracked</button>
-        <input placeholder="Add Player" id="playeradder"/>
-        <button type="button" onclick="addPlayer()">Add</button>
+        <br/>
+        <form>
+        <input type="text" placeholder="Add Player" id="playeradder" autofocus/>
+        <button type="submit" onclick="addPlayer()">Add</button>
+        </form>
+        <br/>
         <div id="loser"></div>
         <div id="players"></div>
         <script type="text/javascript" src="messageController.js"></script>

@@ -18,8 +18,8 @@ const messageTypes = {
 var state = {
     type: 'state',
     currentHeart: 'blue',
-    players: [],
-    loser: -1
+    players: ['PRELIMS'],
+    loser: 0
 };
 
 var clients = [];
@@ -36,7 +36,7 @@ wsServer.on('connection', socket => {
         }
         else if(data.type === messageTypes.addPlayer){
             state.players.push(data.content);
-            state.players.sort();
+            state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
         }
         else if(data.type === messageTypes.removePlayer){
             state.players.splice(data.content, 1);

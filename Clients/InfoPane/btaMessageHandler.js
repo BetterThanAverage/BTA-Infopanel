@@ -6,6 +6,14 @@ const hearts = {
     rainbow: "res/rainbowheart.gif",
     cracked: "res/fakeheart.gif"
 }
+const divisionTitles = {
+    blue: "Blue Division",
+    red: "Red Division",
+    yellow: "Yellow Division",
+    silver: "Silver Division",
+    rainbow: "Rainbow Division",
+    cracked: "Cracked Division"
+}
 var state = {}
 var x = new WebSocket('ws://'+location.host);
 x.addEventListener('open', function (event) {
@@ -52,5 +60,6 @@ function updateState(newState){
 }
 
 function updateHeart(heart){
-    document.getElementById("heartImage").src = hearts[heart] || hearts.silver
+    document.getElementById("heartImage").src = hearts[heart] || hearts.silver;
+    document.getElementById("divisionheader").innerText = divisionTitles[heart] || '';
 }
