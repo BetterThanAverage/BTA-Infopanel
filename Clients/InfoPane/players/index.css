@@ -9,13 +9,17 @@ body {
 }
 
 .playersbox {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
+    display: grid;
+    /*display: flex;*/
+    /*flex-flow: wrap;*/
+    /*justify-content: center;*/
 }
 .playersbox p{
     padding: 5px;
     margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 5px;
+    display: inline-block;
     background-color: lightgray;
 }

@@ -7,12 +7,12 @@ const hearts = {
     cracked: "/infopane/res/fakeheart.gif"
 }
 const divisionTitles = {
-    blue: "Blue Division",
-    red: "Red Division",
-    yellow: "Yellow Division",
-    silver: "Silver Division",
-    rainbow: "Rainbow Division",
-    cracked: "Cracked Division"
+    blue: "Blue\nDivision",
+    red: "Red\nDivision",
+    yellow: "Yellow\nDivision",
+    silver: "Silver\nDivision",
+    rainbow: "Rainbow\nDivision",
+    cracked: "Cracked\nDivision"
 }
 var state = {}
 var x = new WebSocket('ws://'+location.host);

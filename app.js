@@ -1,6 +1,8 @@
 const express = require('express');
 const ws = require('ws');
+const fs = require('fs');
 
+const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
 const port = 8080;
 
 const app = express();
@@ -59,7 +61,11 @@ wsServer.on('connection', socket => {
         }
         else if(data.type === messageTypes.triggerPrelims){
             state.players = ['PRELIMS'];
-            state.loser = 0;
+            if(divisions[state.currentHeart]){
+                state.players = state.players.concat(divisions[state.currentHeart])
+            }
+            state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
+            state.loser = state.players.indexOf('PRELIMS');
         }
         else if(data.type === messageTypes.triggerFinals){
             state.players.push('FINALS')
