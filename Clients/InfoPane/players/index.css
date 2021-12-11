@@ -5,7 +5,7 @@
 
 body {
     font-family: Renogare, sans-serif;
-    font-size: xx-large;
+    font-size: 46px;
 }
 
 .playersbox {
@@ -21,5 +21,5 @@ body {
     margin-right: auto;
     border-radius: 5px;
     display: inline-block;
-    background-color: lightgray;
+    background-color: #b1fffc;
 }

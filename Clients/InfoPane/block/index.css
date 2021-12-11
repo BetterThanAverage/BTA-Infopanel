@@ -20,13 +20,15 @@ body {
 }
 .loser p{
     margin-top: auto;
+    color:white;
+    text-shadow: 2px 3px 4px #505050;
 }
 .loserbox {
     margin-bottom: auto;
     padding: 10px;
-    border: 2px solid darkgray;
-    border-radius: 5px;
-    background-color: #8e8e8e;
+    border: 6px solid #b1fffc;
+    /*border-radius: 5px;*/
+    background-color: #505050;
     color: white;
     /*width: 150px;*/
     display: grid;
