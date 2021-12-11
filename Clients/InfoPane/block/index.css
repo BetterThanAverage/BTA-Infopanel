@@ -28,6 +28,6 @@ body {
     border-radius: 5px;
     background-color: #8e8e8e;
     color: white;
-    width: 150px;
+    /*width: 150px;*/
     display: grid;
 }
