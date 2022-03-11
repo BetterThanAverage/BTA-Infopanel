@@ -7,7 +7,7 @@
                     "a"
                 ]
             },
-            "is_final": false
+            "is_final": true
         },
         {
             "title": "Complete 1A Start without dashing",
@@ -63,7 +63,7 @@
                     "a"
                 ]
             },
-            "is_final": false
+            "is_final": true
         },
         {
             "title": "Old Site Cassette",
@@ -110,7 +110,7 @@
                     "a"
                 ]
             },
-            "is_final": false
+            "is_final": true
         },
         {
             "title": "Complete Huge Mess Chest, then Towel, then Books",
@@ -284,9 +284,7 @@
             "title": "Hit a Kevin block from all 4 sides",
             "sides": {
                 "6": [
-                    "a"
-                ],
-                "8": [
+                    "a",
                     "b",
                     "c"
                 ]
@@ -387,19 +385,6 @@
         }
     ],
     "8": [
-        {
-            "title": "Hit a Kevin block from all 4 sides",
-            "sides": {
-                "6": [
-                    "a"
-                ],
-                "8": [
-                    "b",
-                    "c"
-                ]
-            },
-            "is_final": false
-        },
         {
             "title": "1 Berry in 8A Into the Core",
             "sides": {

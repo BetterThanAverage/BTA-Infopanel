@@ -15,13 +15,17 @@ x.addEventListener('message', function (event) {
 });
 
 function updateState(newState){
-    if(state.players != newState.players){
+    if(state.players != newState.players || state.points != newState.points){
         let nodes = [];
         let idx = 0
         newState.players.forEach(player => {
             if(idx !== newState.loser){
                 let p = document.createElement('p');
                 p.innerText = player;
+                if(newState.points[player] && newState.points[player] > 0)
+                    p.innerText += ` (+${newState.points[player] * 5})`
+                if(newState.points[player] && newState.points[player] < 0)
+                    p.innerText += ` (${newState.points[player] * 5})`
                 nodes.push(p)
             }
             idx++;

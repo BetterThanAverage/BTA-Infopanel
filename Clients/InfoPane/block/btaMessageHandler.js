@@ -20,6 +20,10 @@ function updateState(newState){
     if(newState.loser >= 0 && newState.players.length > newState.loser){
         let p = document.createElement('p');
         p.innerText = newState.players[newState.loser];
+        if(newState.points[newState.players[newState.loser]] && newState.points[newState.players[newState.loser]] > 0)
+            p.innerText += ` (+${newState.points[newState.players[newState.loser]] * 5} secs)`
+        if(newState.points[newState.players[newState.loser]] && newState.points[newState.players[newState.loser]] < 0)
+            p.innerText += ` (${newState.points[newState.players[newState.loser]] * 5} secs)`
         loser.appendChild(p);
     }
     state = newState;

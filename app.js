@@ -19,7 +19,9 @@ const messageTypes = {
     triggerPrelims: "triggerPrelims",
     triggerFinals: "triggerFinals",
     triggerObjective: "triggerObjective",
-    clearObjective: "clearObjective"
+    clearObjective: "clearObjective",
+    addPoint: "addPoint",
+    removePoint: "removePoint"
 }
 
 var state = {
@@ -27,7 +29,8 @@ var state = {
     currentHeart: 'blue',
     players: ['PRELIMS'],
     loser: 0,
-    objective: null
+    objective: null,
+    points: {}
 };
 
 var clients = [];
@@ -55,6 +58,7 @@ wsServer.on('connection', socket => {
         }
         else if(data.type === messageTypes.removePlayer){
             state.players.splice(data.content, 1);
+            delete state.points[data.content];
             if(state.loser === data.content)
                 state.loser = -1;
             if(state.loser > data.content)
@@ -70,6 +74,7 @@ wsServer.on('connection', socket => {
             }
             state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
             state.loser = state.players.indexOf('PRELIMS');
+            state.points = {}
         }
         else if(data.type === messageTypes.triggerFinals){
             state.players.push('FINALS')
@@ -85,6 +90,18 @@ wsServer.on('connection', socket => {
         }
         else if(data.type === messageTypes.clearObjective){
             state.objective = null
+        }
+        else if(data.type === messageTypes.addPoint){
+            if(state.points[data.content])
+                state.points[data.content] ++;
+            else
+                state.points[data.content] = 1;
+        }
+        else if(data.type === messageTypes.removePoint){
+            if(state.points[data.content])
+                state.points[data.content] --;
+            else
+                state.points[data.content] = -1;
         }
         broadcast(state);
     });
