@@ -1,0 +1,431 @@
+{
+    "1": [
+        {
+            "title": "6 Berries in 1A Start",
+            "sides": {
+                "1": [
+                    "a"
+                ]
+            },
+            "is_final": false
+        },
+        {
+            "title": "Complete 1A Start without dashing",
+            "sides": {
+                "1": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Forsaken City Cassette",
+            "sides": {
+                "1": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Forsaken City Blue Heart",
+            "sides": {
+                "1": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Forsaken City B-Side",
+            "sides": {
+                "1": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "2": [
+        {
+            "title": "Old Site Blue Heart",
+            "sides": {
+                "2": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "1 Berry in 2A Awake",
+            "sides": {
+                "2": [
+                    "a"
+                ]
+            },
+            "is_final": false
+        },
+        {
+            "title": "Old Site Cassette",
+            "sides": {
+                "2": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Read the Poem in 2A",
+            "sides": {
+                "2": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Old Site B-Side",
+            "sides": {
+                "2": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "3": [
+        {
+            "title": "Complete Huge Mess Chest, then Book, then Towel",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Celestial Resort Blue Heart",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": false
+        },
+        {
+            "title": "Complete Huge Mess Chest, then Towel, then Books",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Complete Huge Mess Towel, then Books, then Chest",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Complete Huge Mess Books, then Towel, then Chest",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Complete Huge Mess Books, then Chest, then Towel",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Complete Huge Mess Towel, then Chest, then Books",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Celestial Resort Cassette",
+            "sides": {
+                "3": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Celestial Resort B-Side",
+            "sides": {
+                "3": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "4": [
+        {
+            "title": "Golden Ridge Cassette",
+            "sides": {
+                "4": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Golden Ridge Blue Heart",
+            "sides": {
+                "4": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Golden Ridge B-Side",
+            "sides": {
+                "4": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "5": [
+        {
+            "title": "Mirror Temple Cassette",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Mirror Temple B-Side",
+            "sides": {
+                "5": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Mirror Temple Blue Heart",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "1 Berry in 5A Unraveling",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "1 Berry in 5A Rescue",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get 1 Key in 5A Search",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Mirror Temple A-Side",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get 2 Keys in 5A Search",
+            "sides": {
+                "5": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "6": [
+        {
+            "title": "Hit a Kevin block from all 4 sides",
+            "sides": {
+                "6": [
+                    "a"
+                ],
+                "8": [
+                    "b",
+                    "c"
+                ]
+            },
+            "is_final": false
+        },
+        {
+            "title": "Reflection Cassette",
+            "sides": {
+                "6": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get to the Easter Egg Room in Reflection",
+            "sides": {
+                "6": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Reflection A-Side",
+            "sides": {
+                "6": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Reflection B-Side",
+            "sides": {
+                "6": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "7": [
+        {
+            "title": "Get 3 Gems in The Summit",
+            "sides": {
+                "7": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get the Gems in 7A Start and 500M",
+            "sides": {
+                "7": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "The Summit Cassette",
+            "sides": {
+                "7": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get the Gems in 7A 1000M and 1500M",
+            "sides": {
+                "7": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get the Gems in 7A 2000M and 2500M",
+            "sides": {
+                "7": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "The Summit B-Side",
+            "sides": {
+                "7": [
+                    "b"
+                ]
+            },
+            "is_final": true
+        }
+    ],
+    "8": [
+        {
+            "title": "Hit a Kevin block from all 4 sides",
+            "sides": {
+                "6": [
+                    "a"
+                ],
+                "8": [
+                    "b",
+                    "c"
+                ]
+            },
+            "is_final": false
+        },
+        {
+            "title": "1 Berry in 8A Into the Core",
+            "sides": {
+                "8": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Get 1 Berry in 8A Heart of the Mountain",
+            "sides": {
+                "8": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        },
+        {
+            "title": "Core Blue Heart",
+            "sides": {
+                "8": [
+                    "a"
+                ]
+            },
+            "is_final": true
+        }
+    ]
+}

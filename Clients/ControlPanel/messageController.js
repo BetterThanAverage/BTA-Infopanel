@@ -64,6 +64,20 @@ function updateState(newState){
         div.appendChild(removeButton);
         loser.appendChild(div);
     }
+    if(state.objective != newState.objective && newState.objective){
+        let div = document.getElementById('currentObjective');
+        div.innerHTML = "";
+        let h = document.createElement('h3');
+        h.innerText = newState.objective.title;
+        div.appendChild(h)
+        let chapter = document.createElement('p')
+        chapter.innerText = newState.objective.chosenChapter + newState.objective.sides[newState.objective.chosenChapter].join('');
+        div.appendChild(chapter);
+    }
+    else if(!newState.objective){
+        let div = document.getElementById('currentObjective');
+        div.innerHTML = "";
+    }
     state = newState;
 }
 
@@ -97,4 +111,14 @@ function triggerPrelims(){
 }
 function triggerFinals(){
     x.send(JSON.stringify({type: "triggerFinals"}));
+}
+
+function triggerObjective(){
+    let chSel = document.getElementById('chapter');
+    if(chSel.value){
+        x.send(JSON.stringify({type: "triggerObjective", content: chSel.value}))
+    }
+}
+function clearObjective(){
+    x.send(JSON.stringify({type: "clearObjective"}));
 }

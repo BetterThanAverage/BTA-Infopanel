@@ -3,6 +3,7 @@ const ws = require('ws');
 const fs = require('fs');
 
 const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
+const objectives = JSON.parse(fs.readFileSync("objectives.json"))
 const port = 8080;
 
 const app = express();
@@ -16,14 +17,17 @@ const messageTypes = {
     losePlayer: "losePlayer",
     refresh: "refresh",
     triggerPrelims: "triggerPrelims",
-    triggerFinals: "triggerFinals"
+    triggerFinals: "triggerFinals",
+    triggerObjective: "triggerObjective",
+    clearObjective: "clearObjective"
 }
 
 var state = {
     type: 'state',
     currentHeart: 'blue',
     players: ['PRELIMS'],
-    loser: 0
+    loser: 0,
+    objective: null
 };
 
 var clients = [];
@@ -71,6 +75,16 @@ wsServer.on('connection', socket => {
             state.players.push('FINALS')
             state.players.sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
             state.loser = state.players.indexOf('FINALS');
+        }
+        else if(data.type === messageTypes.triggerObjective){
+            if(objectives[data.content] && Array.isArray(objectives[data.content])){
+                let l = objectives[data.content];
+                state.objective = l[Math.floor((Math.random()*l.length))];
+                state.objective['chosenChapter'] = data.content;
+            }
+        }
+        else if(data.type === messageTypes.clearObjective){
+            state.objective = null
         }
         broadcast(state);
     });

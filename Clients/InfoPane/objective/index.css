@@ -1,0 +1,18 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: 46px;
+}
+
+.objective {
+    text-align: center;
+    animation: flicker 2s normal forwards;
+}
+.objective *  {
+    margin-left: auto;
+    margin-right: auto;
+}
