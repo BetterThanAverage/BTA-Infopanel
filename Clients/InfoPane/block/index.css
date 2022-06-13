@@ -26,9 +26,9 @@ body {
 .loserbox {
     margin-bottom: auto;
     padding: 10px;
-    border: 6px solid #b1fffc;
+    border: 6px solid #f0c9fa;
     /*border-radius: 5px;*/
-    background-color: #505050;
+    background-color: #6c9669;
     color: white;
     /*width: 150px;*/
     display: grid;

@@ -29,7 +29,7 @@ function TypeWriter(){
 }
 
 function updateState(newState){
-    if(state.objective != newState.objective && newState.objective){
+    if(!state.objective || (state.objective.title != newState.objective.title && newState.objective)){
         let div = document.getElementById('objective');
         div.innerHTML = "";
         let h = document.createElement('h3');

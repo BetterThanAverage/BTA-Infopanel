@@ -13,13 +13,17 @@ body {
     /*display: flex;*/
     /*flex-flow: wrap;*/
     /*justify-content: center;*/
+    text-align: center;
 }
 .playersbox p{
+    color: white;
     padding: 5px;
     margin: 2px;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     display: inline-block;
-    background-color: #b1fffc;
+    background-color: #6c9669;
+    background-color: #6c9669;
+    border: 6px solid #ded0e2;
 }
