@@ -1,3 +1,22 @@
 button {
     padding: 10px;
 }
+
+.playername{
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding:5px;
+    background-color: lightgray;
+}
+
+.losername{
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding:4px;
+    background-color: lightcoral;
+}
+.loserbutton{
+    background-color: lightcoral;
+}

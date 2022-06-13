@@ -4,7 +4,8 @@ const hearts = {
     yellow: "/infopane/res/yellowheart.gif",
     silver: "/infopane/res/silverheart.gif",
     rainbow: "/infopane/res/rainbowheart.gif",
-    cracked: "/infopane/res/fakeheart.gif"
+    cracked: "/infopane/res/fakeheart.gif",
+    lunar: "/infopane/res/blackheart.gif"
 }
 const divisionTitles = {
     blue: "Blue\nDivision",
@@ -12,7 +13,8 @@ const divisionTitles = {
     yellow: "Yellow\nDivision",
     silver: "Silver\nDivision",
     rainbow: "Rainbow\nDivision",
-    cracked: "Cracked\nDivision"
+    cracked: "Cracked\nDivision",
+    lunar: "Lunar\nDivision"
 }
 var state = {}
 var x = new WebSocket('ws://'+location.host);

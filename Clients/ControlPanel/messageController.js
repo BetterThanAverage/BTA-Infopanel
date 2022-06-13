@@ -21,9 +21,11 @@ function updateState(newState) {
         newState.players.forEach(player => {
             if (idx !== newState.loser) {
                 let div = document.createElement('div');
+                let playerdiv = document.createElement('div');
+                playerdiv.className = "playername";
                 let span = document.createElement('span');
                 span.innerText = player;
-                div.appendChild(span);
+                playerdiv.appendChild(span);
                 let pointTally = document.createElement('span')
                 pointTally.id = `tally_${player}`;
                 pointTally.style.fontWeight = "bolder";
@@ -33,7 +35,8 @@ function updateState(newState) {
                 else {
                     pointTally.innerText = " 0";
                 }
-                div.appendChild(pointTally)
+                playerdiv.appendChild(pointTally)
+                div.appendChild(playerdiv);
                 let minusButton = document.createElement('button');
                 minusButton.type = 'button';
                 minusButton.innerText = '-1';
@@ -80,6 +83,7 @@ function updateState(newState) {
         let div = document.createElement('div');
         let p = document.createElement('p');
         p.innerText = newState.players[newState.loser];
+        p.className = "losername"
         div.appendChild(p);
         let pointTally = document.createElement('span')
         pointTally.id = `tally_${newState.players[newState.loser]}`;
@@ -92,22 +96,26 @@ function updateState(newState) {
         }
         div.appendChild(pointTally)
         let minusButton = document.createElement('button');
+        minusButton.className = "loserbutton";
         minusButton.type = 'button';
         minusButton.innerText = '-1';
         minusButton.value = newState.players[newState.loser];
         minusButton.onclick = () => removePoint(newState.players[newState.loser]);
         div.appendChild(minusButton);
         let plusButton = document.createElement('button');
+        plusButton.className = "loserbutton";
         plusButton.type = 'button';
         plusButton.innerText = '+1';
         plusButton.value = newState.players[newState.loser];
         plusButton.onclick = () => addPoint(newState.players[newState.loser]);
         div.appendChild(plusButton);
         let unloseButton = document.createElement('button');
+        unloseButton.className = "loserbutton";
         unloseButton.type = 'button';
         unloseButton.innerText = 'Unlose';
         unloseButton.onclick = () => markLoss(-1);
         let removeButton = document.createElement('button');
+        removeButton.className = "loserbutton";
         removeButton.type = 'button';
         removeButton.innerText = '🗑️';
         removeButton.value = newState.loser;
@@ -116,20 +124,20 @@ function updateState(newState) {
         div.appendChild(removeButton);
         loser.appendChild(div);
     }
-    if (state.objective != newState.objective && newState.objective) {
-        let div = document.getElementById('currentObjective');
-        div.innerHTML = "";
-        let h = document.createElement('h3');
-        h.innerText = newState.objective.title;
-        div.appendChild(h)
-        let chapter = document.createElement('p')
-        chapter.innerText = newState.objective.chosenChapter + newState.objective.sides[newState.objective.chosenChapter].join('');
-        div.appendChild(chapter);
-    }
-    else if (!newState.objective) {
-        let div = document.getElementById('currentObjective');
-        div.innerHTML = "";
-    }
+    //if (state.objective != newState.objective && newState.objective) {
+    //    let div = document.getElementById('currentObjective');
+    //    div.innerHTML = "";
+    //    let h = document.createElement('h3');
+    //    h.innerText = newState.objective.title;
+    //    div.appendChild(h)
+    //    let chapter = document.createElement('p')
+    //    chapter.innerText = newState.objective.chosenChapter + newState.objective.sides[newState.objective.chosenChapter].join('');
+    //    div.appendChild(chapter);
+    //}
+    //else if (!newState.objective) {
+    //    let div = document.getElementById('currentObjective');
+    //    div.innerHTML = "";
+    //}
     state = newState;
 }
 
