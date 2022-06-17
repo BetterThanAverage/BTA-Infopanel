@@ -1,0 +1,35 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: 32px;
+}
+
+.leveldisplay {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-template-rows: repeat(4, auto);
+    gap: 2px;
+    text-align: center;
+}
+
+.leveldisplay div {
+    border: 6px solid #d8b181;
+    /*border-radius: 5px;*/
+    background-color: #425e7d;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 1em;
+    font-size: 28px;
+    line-height: .99em;
+}
+
+.leveldisplay p {
+    margin-bottom: -9px;
+    color: white;
+    text-shadow: 2px 3px 4px #505050;
+}

@@ -138,6 +138,21 @@ function updateState(newState) {
     //    let div = document.getElementById('currentObjective');
     //    div.innerHTML = "";
     //}
+    Object.entries(newState.levels).forEach(([levelname, sides]) => {
+        Object.entries(sides).forEach(([sidename, value]) => {
+            if((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]){
+                let el = document.getElementById(levelname+sidename);
+                if(el){
+                    if(value){
+                        el.style.backgroundColor = "lightgreen";
+                    }
+                    else {
+                        el.style.backgroundColor = "coral";
+                    }
+                }
+            }
+        })
+    })
     state = newState;
 }
 
@@ -188,4 +203,8 @@ function addPoint(player){
 }
 function removePoint(player){
     x.send(JSON.stringify({type: "removePoint", content: player}))
+}
+
+function triggerLevelToggle(id){
+    x.send(JSON.stringify({type: "toggleLevel", content: id}))
 }
