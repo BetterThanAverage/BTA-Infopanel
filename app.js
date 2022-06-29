@@ -22,7 +22,9 @@ const messageTypes = {
     clearObjective: "clearObjective",
     addPoint: "addPoint",
     removePoint: "removePoint",
-    toggleLevel: "toggleLevel"
+    toggleLevel: "toggleLevel",
+    startTimer: "startTimer",
+    pauseTimer: "pauseTimer"
 }
 
 const levels = {
@@ -116,6 +118,11 @@ var state = {
             'b': true,
             'c': true
         },
+    },
+    timer: {
+        isRunning: false,
+        duration: 0,
+        endTime: null
     }
 };
 
@@ -141,6 +148,9 @@ wsServer.on('connection', socket => {
             if (loser) {
                 state.loser = state.players.indexOf(loser);
             }
+            if(!state.timer.isRunning){
+                state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60
+            }
         }
         else if (data.type === messageTypes.removePlayer) {
             state.players.splice(data.content, 1);
@@ -149,6 +159,9 @@ wsServer.on('connection', socket => {
                 state.loser = -1;
             if (state.loser > data.content)
                 state.loser -= 1;
+            if(!state.timer.isRunning){
+                state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60
+            }
         }
         else if (data.type === messageTypes.losePlayer) {
             state.loser = parseInt(data.content);
@@ -203,11 +216,15 @@ wsServer.on('connection', socket => {
                     'c': true
                 },
             }
+            state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60;
+            state.timer.isRunning = false;
         }
         else if (data.type === messageTypes.triggerFinals) {
             state.players.push('FINALS')
             state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
             state.loser = state.players.indexOf('FINALS');
+            state.timer.duration = 15 * 60;
+            state.timer.isRunning = false;
         }
         else if (data.type === messageTypes.triggerObjective) {
             if (objectives[data.content] && Array.isArray(objectives[data.content])) {
@@ -240,6 +257,21 @@ wsServer.on('connection', socket => {
                     state.levels[chapter][side] = !state.levels[chapter][side];
                 }
             }
+        }
+        else if (data.type === messageTypes.startTimer){
+            if(!state.timer.isRunning){
+                state.timer.endTime = new Date(new Date().getTime() + state.timer.duration*1000)
+                state.timer.isRunning = true
+            }
+            else{
+                state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+            }
+        }
+        else if (data.type === messageTypes.pauseTimer){
+            if(state.timer.endTime){
+                state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+            }
+            state.timer.isRunning = false;
         }
         broadcast(state);
     });

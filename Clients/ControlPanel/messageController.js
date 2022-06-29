@@ -208,3 +208,10 @@ function removePoint(player){
 function triggerLevelToggle(id){
     x.send(JSON.stringify({type: "toggleLevel", content: id}))
 }
+
+function sendStartTimer(){
+    x.send(JSON.stringify({type: "startTimer"}));
+}
+function sendPauseTimer(){
+    x.send(JSON.stringify({type: "pauseTimer"}));
+}

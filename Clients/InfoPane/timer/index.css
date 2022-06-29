@@ -1,0 +1,66 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Renogare, sans-serif;
+    font-size: 40px;
+}
+
+.timerbox{
+    position: absolute;
+    width: 315px;
+    height: 60px;
+    line-height: 39px;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 60% 40%;
+    text-align: right;
+}
+.timerbox p{
+    z-index: 10;
+}
+.timerbox img{
+    z-index: 10;
+}
+.backgroundbox{
+    background-color: black;
+    width:100%;
+    height: 60px;
+    position: absolute;
+    top: 8px;
+    z-index: 0;
+}
+.backgroundbox::after{
+    content: "";
+    width:0px;
+    height: 0px;
+    border-top: 60px solid black;
+    border-right: 21px solid transparent;
+    position: absolute;
+    top:0%;
+    left: 100%;
+}
+
+#heartImage{
+    height: 50px;
+    display:inline;
+    grid-row-start: span 2;
+    margin:auto;
+}
+#time{
+    line-height: 36px;
+}
+#divisionheader{
+    font-size: 26px;
+    line-height: 24px;
+    color: #989898;
+}
