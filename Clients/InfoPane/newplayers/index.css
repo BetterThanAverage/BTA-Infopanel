@@ -3,21 +3,20 @@
     src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Renogare, sans-serif;
-    font-size: 40px;
+    font-size: 36px;
 }
 
-.timerbox{
+.playersbox {
+    display: grid;
+    grid-template-columns: auto;
     position: absolute;
-    width: 315px;
-    height: 60px;
-    line-height: 39px;
+    top: 0px;
+}
+.player{
+    height: 50px;
+    line-height: 33px;
     color: white;
     text-shadow: 0px 2px 0 black,
                  0px -2px 0 black,
@@ -27,47 +26,41 @@ body {
                  2px -2px 0 black,
                  -2px 2px 0 black,
                  -2px -2px 0 black;
-    display: grid;
-    grid-template-columns: 20% 80%;
-    grid-template-rows: 60% 40%;
     text-align: right;
+    position: relative;
+    left: 0%;
+    width: min-content;
 }
-.timerbox p{
+.player p{
+    position: relative;
+    margin-left: 5px;
     z-index: 10;
 }
-.timerbox img{
-    z-index: 10;
-}
-.backgroundbox{
+.player .box{
     background-color: black;
-    width:100%;
-    height: 60px;
+    width: 100%;
+    height: 36px;
     position: absolute;
-    top: 8px;
+    top: 6px;
     z-index: 0;
 }
-.backgroundbox::after{
+.player .box::after{
     content: "";
-    width:0px;
+    width: 0px;
     height: 0px;
-    border-top: 60px solid black;
-    border-right: 21px solid transparent;
+    border-top: 36px solid black;
+    border-right: 17px solid transparent;
     position: absolute;
-    top:0%;
+    top: 0%;
     left: 100%;
 }
 
-#heartImage{
-    height: 50px;
-    display:inline;
-    grid-row-start: span 2;
-    margin:auto;
+.loser p{
+    margin-left: 30px;
 }
-#time{
-    line-height: 38px;
+.loser .box{
+    background-color: darkred;
 }
-#divisionheader{
-    font-size: 26px;
-    line-height: 30px;
-    color: #989898;
+.loser .box::after{
+    border-top-color: darkred;
 }
