@@ -24,10 +24,11 @@ function updateState(newState){
             div.className = "player";
             let p = document.createElement('p');
             p.innerText = player;
-            if(player !== 'PRELIMS' && player !== 'FINALS')
-                p.innerText += ` 🍓\u2060x${newState.points[player]|0}`
             p.innerText = p.innerText.replace(/ /g, '\u00a0')//NBSP
             div.appendChild(p);
+            if(player !== 'PRELIMS' && player !== 'FINALS'){
+                p.innerHTML += ` <img class="berry icon" src="/infopane/res/strawberry.png"/>\u2060<span class="times">\u00D7</span>${newState.points[player]|0}<img class="berry icon" src="/infopane/res/cs_assistmode.png"/>\u2060<span class="times">\u00D7</span>${newState.redeems[player]|0}`
+            }
             let bg = document.createElement('div');
             bg.className = "box";
             div.appendChild(bg);

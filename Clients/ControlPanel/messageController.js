@@ -39,16 +39,28 @@ function updateState(newState) {
                 div.appendChild(playerdiv);
                 let minusButton = document.createElement('button');
                 minusButton.type = 'button';
-                minusButton.innerText = '-1';
+                minusButton.innerText = '-🍓';
                 minusButton.value = player;
                 minusButton.onclick = () => removePoint(player);
                 div.appendChild(minusButton);
                 let plusButton = document.createElement('button');
                 plusButton.type = 'button';
-                plusButton.innerText = '+1';
+                plusButton.innerText = '+🍓';
                 plusButton.value = player;
                 plusButton.onclick = () => addPoint(player);
                 div.appendChild(plusButton);
+                let minusRdmButton = document.createElement('button');
+                minusRdmButton.type = 'button';
+                minusRdmButton.innerText = '+🐦';
+                minusRdmButton.value = player;
+                minusRdmButton.onclick = () => removeRedeem(player);
+                div.appendChild(minusRdmButton);
+                let plusRdmButton = document.createElement('button');
+                plusRdmButton.type = 'button';
+                plusRdmButton.innerText = '+🐦';
+                plusRdmButton.value = player;
+                plusRdmButton.onclick = () => addRedeem(player);
+                div.appendChild(plusRdmButton);
                 let loseButton = document.createElement('button');
                 loseButton.type = 'button';
                 loseButton.innerText = 'Lost';
@@ -85,30 +97,46 @@ function updateState(newState) {
         p.innerText = newState.players[newState.loser];
         p.className = "losername"
         div.appendChild(p);
-        let pointTally = document.createElement('span')
-        pointTally.id = `tally_${newState.players[newState.loser]}`;
-        pointTally.style.fontWeight = "bolder";
-        if (newState.points && newState.points[newState.players[newState.loser]]) {
-            pointTally.innerText = ` ${newState.points[newState.players[newState.loser]]}`;
+        if (newState.players[newState.loser] !== 'PRELIMS' && newState.players[newState.loser] !== 'FINALS') {
+            let pointTally = document.createElement('span')
+            pointTally.id = `tally_${newState.players[newState.loser]}`;
+            pointTally.style.fontWeight = "bolder";
+            if (newState.points && newState.points[newState.players[newState.loser]]) {
+                pointTally.innerText = ` ${newState.points[newState.players[newState.loser]]}`;
+            }
+            else {
+                pointTally.innerText = " 0";
+            }
+            div.appendChild(pointTally)
+            let minusButton = document.createElement('button');
+            minusButton.className = "loserbutton";
+            minusButton.type = 'button';
+            minusButton.innerText = '-🍓';
+            minusButton.value = newState.players[newState.loser];
+            minusButton.onclick = () => removePoint(newState.players[newState.loser]);
+            div.appendChild(minusButton);
+            let plusButton = document.createElement('button');
+            plusButton.className = "loserbutton";
+            plusButton.type = 'button';
+            plusButton.innerText = '+🍓';
+            plusButton.value = newState.players[newState.loser];
+            plusButton.onclick = () => addPoint(newState.players[newState.loser]);
+            div.appendChild(plusButton);
+            let minusRdmButton = document.createElement('button');
+            minusRdmButton.className = "loserbutton";
+            minusRdmButton.type = 'button';
+            minusRdmButton.innerText = '+🐦';
+            minusRdmButton.value = newState.players[newState.loser];
+            minusRdmButton.onclick = () => removeRedeem(newState.players[newState.loser]);
+            div.appendChild(minusRdmButton);
+            let plusRdmButton = document.createElement('button');
+            plusRdmButton.className = "loserbutton";
+            plusRdmButton.type = 'button';
+            plusRdmButton.innerText = '+🐦';
+            plusRdmButton.value = newState.players[newState.loser];
+            plusRdmButton.onclick = () => addRedeem(newState.players[newState.loser]);
+            div.appendChild(plusRdmButton);
         }
-        else {
-            pointTally.innerText = " 0";
-        }
-        div.appendChild(pointTally)
-        let minusButton = document.createElement('button');
-        minusButton.className = "loserbutton";
-        minusButton.type = 'button';
-        minusButton.innerText = '-1';
-        minusButton.value = newState.players[newState.loser];
-        minusButton.onclick = () => removePoint(newState.players[newState.loser]);
-        div.appendChild(minusButton);
-        let plusButton = document.createElement('button');
-        plusButton.className = "loserbutton";
-        plusButton.type = 'button';
-        plusButton.innerText = '+1';
-        plusButton.value = newState.players[newState.loser];
-        plusButton.onclick = () => addPoint(newState.players[newState.loser]);
-        div.appendChild(plusButton);
         let unloseButton = document.createElement('button');
         unloseButton.className = "loserbutton";
         unloseButton.type = 'button';
@@ -140,10 +168,10 @@ function updateState(newState) {
     //}
     Object.entries(newState.levels).forEach(([levelname, sides]) => {
         Object.entries(sides).forEach(([sidename, value]) => {
-            if((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]){
-                let el = document.getElementById(levelname+sidename);
-                if(el){
-                    if(value){
+            if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
+                let el = document.getElementById(levelname + sidename);
+                if (el) {
+                    if (value) {
                         el.style.backgroundColor = "lightgreen";
                     }
                     else {
@@ -198,20 +226,26 @@ function clearObjective() {
     x.send(JSON.stringify({ type: "clearObjective" }));
 }
 
-function addPoint(player){
-    x.send(JSON.stringify({type: "addPoint", content: player}))
+function addPoint(player) {
+    x.send(JSON.stringify({ type: "addPoint", content: player }))
 }
-function removePoint(player){
-    x.send(JSON.stringify({type: "removePoint", content: player}))
+function removePoint(player) {
+    x.send(JSON.stringify({ type: "removePoint", content: player }))
+}
+function addRedeem(player) {
+    x.send(JSON.stringify({ type: "addRedeem", content: player }))
+}
+function removeRedeem(player) {
+    x.send(JSON.stringify({ type: "removeRedeem", content: player }))
 }
 
-function triggerLevelToggle(id){
-    x.send(JSON.stringify({type: "toggleLevel", content: id}))
+function triggerLevelToggle(id) {
+    x.send(JSON.stringify({ type: "toggleLevel", content: id }))
 }
 
-function sendStartTimer(){
-    x.send(JSON.stringify({type: "startTimer"}));
+function sendStartTimer() {
+    x.send(JSON.stringify({ type: "startTimer" }));
 }
-function sendPauseTimer(){
-    x.send(JSON.stringify({type: "pauseTimer"}));
+function sendPauseTimer() {
+    x.send(JSON.stringify({ type: "pauseTimer" }));
 }

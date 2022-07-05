@@ -22,6 +22,8 @@ const messageTypes = {
     clearObjective: "clearObjective",
     addPoint: "addPoint",
     removePoint: "removePoint",
+    addRedeem: "addRedeem",
+    removeRedeem: "removeRedeem",
     toggleLevel: "toggleLevel",
     startTimer: "startTimer",
     pauseTimer: "pauseTimer"
@@ -77,6 +79,7 @@ var state = {
     loser: 0,
     objective: null,
     points: {},
+    redemptions: {},
     levels: {
         '1': {
             'a': false,
@@ -155,6 +158,7 @@ wsServer.on('connection', socket => {
         else if (data.type === messageTypes.removePlayer) {
             state.players.splice(data.content, 1);
             delete state.points[data.content];
+            delete state.redeems[data.content];
             if (state.loser === data.content)
                 state.loser = -1;
             if (state.loser > data.content)
@@ -174,6 +178,7 @@ wsServer.on('connection', socket => {
             state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
             state.loser = state.players.indexOf('PRELIMS');
             state.points = {}
+            state.redeems = {}
             state.levels = {
                 '1': {
                     'a': false,
@@ -247,6 +252,18 @@ wsServer.on('connection', socket => {
                 state.points[data.content]--;
             else
                 state.points[data.content] = -1;
+        }
+        else if (data.type === messageTypes.addRedeem) {
+            if (state.redeems[data.content])
+                state.redeems[data.content]++;
+            else
+                state.redeems[data.content] = 1;
+        }
+        else if (data.type === messageTypes.removeRedeem) {
+            if (state.redeems[data.content])
+                state.redeems[data.content]--;
+            else
+                state.redeems[data.content] = -1;
         }
         else if (data.type === messageTypes.toggleLevel) {
             let l = data.content;
