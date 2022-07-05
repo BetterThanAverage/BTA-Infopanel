@@ -1,5 +1,16 @@
 var state = {}
 var x = new WebSocket('ws://'+location.host);
+
+const divisionTitles = {
+    blue: "Blue Division",
+    red: "Red Division",
+    yellow: "Yellow Division",
+    silver: "Silver Division",
+    rainbow: "Rainbow Division",
+    cracked: "Cracked Division",
+    lunar: "Lunar Division"
+}
+
 x.addEventListener('open', function (event) {
     console.log("Opened Socket");
 });
@@ -27,7 +38,16 @@ function updateState(newState){
             p.innerText = p.innerText.replace(/ /g, '\u00a0')//NBSP
             div.appendChild(p);
             if(player !== 'PRELIMS' && player !== 'FINALS'){
-                p.innerHTML += ` <img class="berry icon" src="/infopane/res/strawberry.png"/>\u2060<span class="times">\u00D7</span>${newState.points[player]|0}<img class="berry icon" src="/infopane/res/cs_assistmode.png"/>\u2060<span class="times">\u00D7</span>${newState.redeems[player]|0}`
+                let infoLine = document.createElement('p');
+                infoLine.className = "playerinfoline";
+                infoLine.innerHTML = `<img class="berry icon" src="/infopane/res/strawberry.png"/>\u2060<span class="times">\u00D7</span>${newState.points[player]|0}<img class="berry icon" src="/infopane/res/cs_assistmode.png"/>\u2060<span class="times">\u00D7</span>${newState.redeems[player]|0}`
+                div.appendChild(infoLine);
+            }
+            else{
+                let infoLine = document.createElement('p');
+                infoLine.className = "playerinfoline fakeplayer";
+                infoLine.innerHTML = `${divisionTitles[newState.currentHeart]}`
+                div.appendChild(infoLine);
             }
             let bg = document.createElement('div');
             bg.className = "box";
