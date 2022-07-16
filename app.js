@@ -285,10 +285,12 @@ wsServer.on('connection', socket => {
             }
         }
         else if (data.type === messageTypes.pauseTimer){
-            if(state.timer.endTime){
-                state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+            if(state.timer.isRunning){
+                if(state.timer.endTime){
+                    state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+                }
+                state.timer.isRunning = false;
             }
-            state.timer.isRunning = false;
         }
         broadcast(state);
     });

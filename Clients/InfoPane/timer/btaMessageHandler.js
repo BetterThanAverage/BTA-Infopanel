@@ -49,6 +49,19 @@ function updateHeart(heart) {
 
 var timeInterval;
 
+function numberPadAndSpan(number){
+    let str = number.toString().padStart(2, '0');
+    return '<span class="FWNum">'+ str.split('').join('</span><span class="FWNum">') + '</span>'
+}
+
+function getTimerString(totalSeconds){
+    let hours = Math.floor(totalSeconds / 3600);
+    let minutes = Math.floor(totalSeconds / 60) - (hours * 60);
+    let seconds = Math.floor(totalSeconds % 60);
+    let timeString = numberPadAndSpan(hours) + ":" + numberPadAndSpan(minutes) + ":" + numberPadAndSpan(seconds);
+    return timeString;
+}
+
 function updateTimer(timer) {
     let timeElement = document.getElementById("time")
     clearInterval(timeInterval);
@@ -56,21 +69,15 @@ function updateTimer(timer) {
         timeInterval = setInterval(() => {
             diff = (new Date(timer.endTime).getTime() - new Date().getTime()) / 1000
             if (diff <= 0) {
-                timeElement.innerText = "00:00:00";
+                timeElement.innerHTML = getTimerString(0);
                 clearInterval();
             }
             else {
-                let hours = Math.floor(diff / 3600);
-                let minutes = Math.floor(diff / 60) - (hours * 60);
-                let seconds = Math.floor(diff % 60);
-                timeElement.innerText = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0')
+                timeElement.innerHTML = getTimerString(diff);
             }
         }, 200);
     }
     else if (timer.duration) {
-        let hours = Math.floor(timer.duration / 3600);
-        let minutes = Math.floor(timer.duration / 60) - (hours * 60);
-        let seconds = Math.floor(timer.duration % 60);
-        timeElement.innerText = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0')
+        timeElement.innerHTML = getTimerString(timer.duration);
     }
 }

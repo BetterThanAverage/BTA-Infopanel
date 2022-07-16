@@ -35,6 +35,12 @@ body {
 .timerbox p{
     z-index: 10;
 }
+
+.FWNum{
+    display: inline-block;
+    width: 28px;
+    text-align: center;
+}
 .timerbox img{
     z-index: 10;
 }
