@@ -25,6 +25,10 @@ x.addEventListener('message', function (event) {
     }
 });
 
+function isSpecialPlayer(playerName){
+    return playerName === 'PRELIMS' || playerName === 'FINALS' || playerName === 'SUDDEN DEATH'
+}
+
 function updateState(newState){
     if(state.players != newState.players || state.points != newState.points || state.loser !== newState.loser){
         let nodes = [];
@@ -37,16 +41,10 @@ function updateState(newState){
             p.innerText = player;
             p.innerText = p.innerText.replace(/ /g, '\u00a0')//NBSP
             div.appendChild(p);
-            if(player !== 'PRELIMS' && player !== 'FINALS'){
+            if(!isSpecialPlayer(player)){
                 let infoLine = document.createElement('p');
                 infoLine.className = "playerinfoline";
                 infoLine.innerHTML = `<img class="berry icon" src="/infopane/res/strawberry.png"/>\u2060<span class="times">\u00D7</span>${newState.points[player]|0}<img class="berry icon" src="/infopane/res/cs_assistmode.png"/>\u2060<span class="times">\u00D7</span>${newState.redeems[player]|0}`
-                div.appendChild(infoLine);
-            }
-            else{
-                let infoLine = document.createElement('p');
-                infoLine.className = "playerinfoline fakeplayer";
-                infoLine.innerHTML = `${divisionTitles[newState.currentHeart]}`
                 div.appendChild(infoLine);
             }
             let bg = document.createElement('div');
@@ -56,7 +54,12 @@ function updateState(newState){
                 nodes.push(div)
             }
             else{
-                div.className = "player loser"
+                if(!isSpecialPlayer(player)){
+                    div.className = "player loser"
+                }
+                else{
+                    div.className = "player loser special"
+                }
                 losernode = div;
             }
             idx++;
