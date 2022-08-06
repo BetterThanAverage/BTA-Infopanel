@@ -31,41 +31,49 @@ const messageTypes = {
 
 const levels = {
     '1': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '2': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '3': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '4': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '5': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '6': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '7': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
     },
     '8': {
+        'r': true,
         'a': true,
         'b': true,
         'c': true
@@ -82,41 +90,49 @@ var state = {
     redemptions: {},
     levels: {
         '1': {
+            'r': true,
             'a': false,
             'b': true,
             'c': true
         },
         '2': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '3': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '4': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '5': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '6': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '7': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
         },
         '8': {
+            'r': true,
             'a': true,
             'b': true,
             'c': true
@@ -151,8 +167,8 @@ wsServer.on('connection', socket => {
             if (loser) {
                 state.loser = state.players.indexOf(loser);
             }
-            if(!state.timer.isRunning){
-                state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60
+            if (!state.timer.isRunning) {
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
             }
         }
         else if (data.type === messageTypes.removePlayer) {
@@ -163,8 +179,8 @@ wsServer.on('connection', socket => {
                 state.loser = -1;
             if (state.loser > data.content)
                 state.loser -= 1;
-            if(!state.timer.isRunning){
-                state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60
+            if (!state.timer.isRunning) {
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
             }
         }
         else if (data.type === messageTypes.losePlayer) {
@@ -181,47 +197,55 @@ wsServer.on('connection', socket => {
             state.redeems = {}
             state.levels = {
                 '1': {
+                    'r': true,
                     'a': false,
                     'b': true,
                     'c': true
                 },
                 '2': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '3': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '4': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '5': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '6': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '7': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
                 '8': {
+                    'r': true,
                     'a': true,
                     'b': true,
                     'c': true
                 },
             }
-            state.timer.duration = state.players.filter(x => x!=="PRELIMS" && x!=="FINALS").length * 15 * 60;
+            state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60;
             state.timer.isRunning = false;
         }
         else if (data.type === messageTypes.triggerFinals) {
@@ -275,18 +299,18 @@ wsServer.on('connection', socket => {
                 }
             }
         }
-        else if (data.type === messageTypes.startTimer){
-            if(!state.timer.isRunning){
-                state.timer.endTime = new Date(new Date().getTime() + state.timer.duration*1000)
+        else if (data.type === messageTypes.startTimer) {
+            if (!state.timer.isRunning) {
+                state.timer.endTime = new Date(new Date().getTime() + state.timer.duration * 1000)
                 state.timer.isRunning = true
             }
-            else{
+            else {
                 state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
             }
         }
-        else if (data.type === messageTypes.pauseTimer){
-            if(state.timer.isRunning){
-                if(state.timer.endTime){
+        else if (data.type === messageTypes.pauseTimer) {
+            if (state.timer.isRunning) {
+                if (state.timer.endTime) {
                     state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
                 }
                 state.timer.isRunning = false;

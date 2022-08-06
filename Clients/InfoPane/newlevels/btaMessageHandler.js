@@ -15,6 +15,7 @@ x.addEventListener('message', function (event) {
 });
 
 const sideImages = {
+    'r': '<img src="/infopane/res/strawberry.png" height="64px"/>',
     'a': '<img src="/infopane/res/ticket/clear.png"/>',
     'b': '<img src="/infopane/res/ticket/heartgem1.png"/>',
     'c': '<img src="/infopane/res/ticket/heartgem2.png"/>',
@@ -23,7 +24,9 @@ const sideImages = {
 function updateState(newState) {
     Object.entries(newState.levels).forEach(([levelname, sides]) => {
         Object.entries(sides).forEach(([sidename, value]) => {
-            if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
+            if(levelname==='6' && sidename==='r'){
+            }
+            else if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
                 let el = document.getElementById(levelname + sidename);
                 el.innerHTML = ""
                 if (el) {
