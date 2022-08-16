@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>BTA Control Panel</title>
-        <link rel="stylesheet" type="text/css" href="/base.css">
-        <link rel="stylesheet" type="text/css" href="index.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    </head>
-    <body>
-        <button type="button" onclick="sendUpdateHeart('blue')">Blue</button>
-        <button type="button" onclick="sendUpdateHeart('red')">Red</button>
-        <button type="button" onclick="sendUpdateHeart('yellow')">Yellow</button>
-        <button type="button" onclick="sendUpdateHeart('cracked')">Cracked</button>
-        <button type="button" onclick="sendUpdateHeart('lunar')">Lunar</button>
-        <br/>
+<head>
+    <title>BTA Control Panel</title>
+    <link rel="stylesheet" type="text/css" href="/base.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <div class="divisionbuttons">
+        <button type="button" style="background-color: lightblue;" onclick="sendUpdateHeart('blue')">Blue</button>
+        <button type="button" style="background-color: lightcoral;" onclick="sendUpdateHeart('red')">Red</button>
+        <button type="button" style="background-color: lightyellow;" onclick="sendUpdateHeart('yellow')">Yellow</button>
+        <button type="button" style="background-color: lightgray;" onclick="sendUpdateHeart('cracked')">Cracked</button>
+        <button type="button" style="background-color: black; color:white" onclick="sendUpdateHeart('lunar')">Lunar</button>
+    </div>
+    <div class="timercontrols">
         <button type="button" onclick="sendStartTimer()">Start</button>
         <button type="button" onclick="sendPauseTimer()">Pause</button>
+    </div>
+    <div class="playercontrols">
         <form>
-        <input type="text" placeholder="Add Player" id="playeradder" autofocus/>
-        <button type="button" onclick="addPlayer()">Add</button>
+            <input type="text" placeholder="Add Player" id="playeradder" autofocus />
+            <button type="button" onclick="addPlayer()">Add</button>
         </form>
-        <br/>
+        <br />
         <div id="loser"></div>
         <div id="players"></div>
-        <br/><br/>
+    </div>
+    <div class="roundcontrols">
         <button type="button" onclick="triggerPrelims()" style="background-color: red">Prelims (Clears players)</button>
         <button type="button" onclick="triggerFinals()">Finals</button>
-        <!--<form>
+    </div>
+    <!--<form>
         <select name="chapter" id="chapter">
             <option value="" disabled="disabled" selected="selected">Chapter</option>
             <option value="1">1</option>
@@ -41,6 +47,7 @@
         </form>
         <div id="currentObjective"></div>
         <button type="button" onclick="clearObjective()">Clear Objective</button>-->
+    <div class="levelcontrols">
         <div class="levelbuttons">
             <p>1</p>
             <p>2</p>
@@ -83,6 +90,8 @@
             <button id="7c" onclick="triggerLevelToggle('7c')">c</button>
             <button id="8c" onclick="triggerLevelToggle('8c')">c</button>
         </div>
-        <script type="text/javascript" src="messageController.js"></script>
-    </body>
+    </div>
+    <script type="text/javascript" src="messageController.js"></script>
+</body>
+
 </html>

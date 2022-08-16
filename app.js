@@ -175,7 +175,7 @@ wsServer.on('connection', socket => {
             state.players.splice(data.content, 1);
             delete state.points[data.content];
             delete state.redeems[data.content];
-            if (state.loser === data.content)
+            if (state.loser == data.content)
                 state.loser = -1;
             if (state.loser > data.content)
                 state.loser -= 1;

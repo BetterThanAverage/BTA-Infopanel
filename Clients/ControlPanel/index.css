@@ -1,28 +1,90 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+}
+
 button {
     padding: 10px;
+    border: none;
+    border-radius: 5px;
 }
 
-.playername{
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding:5px;
-    background-color: lightgray;
-}
-
-.losername{
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding:4px;
-    background-color: lightcoral;
-}
-.loserbutton{
-    background-color: lightcoral;
-}
-
-.levelbuttons{
+.levelbuttons {
     display: grid;
     grid-template-columns: repeat(8, auto);
     grid-template-rows: repeat(4, auto);
+}
+
+/*
+<div class="playercard">
+  <div class="header">
+    <div class="title"><p>Player 1</p></div>
+    <div class="stats">
+      <p>🍓x0</p>
+      <p>🐦x0</p>
+    </div>
+  </div>
+  <div class="actionline">
+    <button class="actionbutton">-🍓</button>
+    <button class="actionbutton">+🍓</button>
+    <button class="actionbutton">-🐦</button>
+    <button class="actionbutton">+🐦</button>
+  </div>
+  <div class="actionline">
+    <button class="actionbutton">Mark Loser</button>
+    <button class="actionbutton">Remove Player</button>
+  </div>
+</div>
+*/
+.playercard{
+    display: inline-block;
+    background-color: #eee;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px;
+    overflow: hidden;
+}
+.playercard .header{
+    width: 100%;
+    background-color: lightskyblue;
+    padding-bottom: 5px;
+    font-family: 'Renogare', sans-serif;
+}
+.playercard.loser .header{
+    background-color: lightcoral;
+}
+.playercard .header .title{
+    text-align: center;
+    font-size: large;
+}
+.playercard .header .stats{
+    margin-top: 5px;
+    text-align: center;
+}
+.playercard .header .stats p{
+    display: inline-block;
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px dotted black;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 1px;
+}
+.playercard .actionline {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.playercard .actionline .actionbutton {
+    background-color: lightsalmon;
+    margin: 1px;
+    border-radius: 10px;
 }

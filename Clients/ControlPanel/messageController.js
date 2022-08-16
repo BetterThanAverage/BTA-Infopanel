@@ -14,143 +14,162 @@ x.addEventListener('message', function (event) {
     }
 });
 
+function isSpecialPlayer(playerName) {
+    return playerName === 'PRELIMS' || playerName === 'FINALS' || playerName === 'SUDDEN DEATH'
+}
+
 function updateState(newState) {
-    if (state.players != newState.players) {
+    if (state.players != newState.players || state.loser != newState.loser) {
         let nodes = [];
+        let loserEl;
         let idx = 0;
         newState.players.forEach(player => {
-            if (idx !== newState.loser) {
-                let div = document.createElement('div');
-                let playerdiv = document.createElement('div');
-                playerdiv.className = "playername";
-                let span = document.createElement('span');
-                span.innerText = player;
-                playerdiv.appendChild(span);
-                let pointTally = document.createElement('span')
-                pointTally.id = `tally_${player}`;
-                pointTally.style.fontWeight = "bolder";
+            let flagLoser = idx === newState.loser;
+            let playercard = document.createElement('div');
+            playercard.className = "playercard";
+            if (flagLoser) {
+                playercard.className += " loser"
+            }
+
+            //#region header
+            let playerheader = document.createElement('div');
+            playerheader.className = "header";
+
+            //#region title
+            let playertitle = document.createElement('div');
+            playertitle.className = "title";
+
+            //#region name
+            let name = document.createElement('p');
+            name.innerText = player;
+            playertitle.appendChild(name);
+            //#endregion name
+
+            playerheader.appendChild(playertitle);
+            //#endregion title
+
+            //#region stats
+            if (!isSpecialPlayer(player)) {
+                let playerstats = document.createElement('div');
+                playerstats.className = "stats";
+
+                //#region berries
+                let berryTally = document.createElement('p')
+                berryTally.id = `tally_${player}`;
                 if (newState.points && newState.points[player]) {
-                    pointTally.innerText = ` ${newState.points[player]}`;
+                    berryTally.innerText = `🍓x${newState.points[player]}`;
                 }
                 else {
-                    pointTally.innerText = " 0";
+                    berryTally.innerText = "🍓x0";
                 }
-                playerdiv.appendChild(pointTally)
-                div.appendChild(playerdiv);
+                playerstats.appendChild(berryTally)
+                //#endregion berries
+
+                //#region redeems
+                let redeemTally = document.createElement('p')
+                redeemTally.id = `tally_${player}`;
+                if (newState.points && newState.redeems[player]) {
+                    redeemTally.innerText = `🐦x${newState.redeems[player]}`;
+                }
+                else {
+                    redeemTally.innerText = "🐦x0";
+                }
+                playerstats.appendChild(redeemTally)
+                //#endregion redeems
+
+                playerheader.appendChild(playerstats);
+            }
+            //#endregion stats
+
+            playercard.appendChild(playerheader);
+            //#endregion header
+
+            //#region 1st action buttons
+            if (!isSpecialPlayer(player)) {
+                let actionline1 = document.createElement('div');
+                actionline1.className = 'actionline';
+
                 let minusButton = document.createElement('button');
+                minusButton.className = "actionbutton";
                 minusButton.type = 'button';
                 minusButton.innerText = '-🍓';
                 minusButton.value = player;
                 minusButton.onclick = () => removePoint(player);
-                div.appendChild(minusButton);
+                actionline1.appendChild(minusButton);
                 let plusButton = document.createElement('button');
+                plusButton.className = "actionbutton";
                 plusButton.type = 'button';
                 plusButton.innerText = '+🍓';
                 plusButton.value = player;
                 plusButton.onclick = () => addPoint(player);
-                div.appendChild(plusButton);
+                actionline1.appendChild(plusButton);
                 let minusRdmButton = document.createElement('button');
+                minusRdmButton.className = "actionbutton";
                 minusRdmButton.type = 'button';
-                minusRdmButton.innerText = '+🐦';
+                minusRdmButton.innerText = '-🐦';
                 minusRdmButton.value = player;
                 minusRdmButton.onclick = () => removeRedeem(player);
-                div.appendChild(minusRdmButton);
+                actionline1.appendChild(minusRdmButton);
                 let plusRdmButton = document.createElement('button');
+                plusRdmButton.className = "actionbutton"
                 plusRdmButton.type = 'button';
                 plusRdmButton.innerText = '+🐦';
                 plusRdmButton.value = player;
                 plusRdmButton.onclick = () => addRedeem(player);
-                div.appendChild(plusRdmButton);
+                actionline1.appendChild(plusRdmButton);
+
+                playercard.appendChild(actionline1);
+            }
+            //#endregion 1st action buttons
+
+            //#region 2nd action buttons
+            let actionline2 = document.createElement('div');
+            actionline2.className = 'actionline';
+
+            if (!flagLoser) {
                 let loseButton = document.createElement('button');
+                loseButton.className = 'actionbutton';
                 loseButton.type = 'button';
-                loseButton.innerText = 'Lost';
+                loseButton.innerText = 'Mark Loser';
                 loseButton.value = idx;
                 loseButton.onclick = () => markLoss(loseButton.value);
-                let removeButton = document.createElement('button');
-                removeButton.type = 'button';
-                removeButton.innerText = '🗑️';
-                removeButton.value = idx;
-                removeButton.onclick = () => removePlayer(removeButton.value);
-                div.appendChild(loseButton);
-                div.appendChild(removeButton);
-                nodes.push(div)
+                actionline2.appendChild(loseButton);
+            }
+            else {
+                let winButton = document.createElement('button');
+                winButton.className = 'actionbutton';
+                winButton.type = 'button';
+                winButton.innerText = 'Unmark'
+                winButton.value = idx;
+                winButton.onclick = () => markLoss(-1);
+                actionline2.appendChild(winButton);
+            }
+            let removeButton = document.createElement('button');
+            removeButton.className = 'actionbutton';
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove Player';
+            removeButton.value = idx;
+            removeButton.onclick = () => removePlayer(removeButton.value);
+            actionline2.appendChild(removeButton);
+
+            playercard.appendChild(actionline2);
+            //#endregion 2nd action buttons
+            if (flagLoser) {
+                loserEl = playercard
+            }
+            else {
+                nodes.push(playercard)
             }
             idx++;
         });
         let playerNode = document.getElementById('players');
         playerNode.innerHTML = '';
         nodes.forEach(node => playerNode.appendChild(node));
-    }
-    //if (state.points != newState.points) {
-    //    newState.points.forEach((player, total) => {
-    //        let tally = document.getElementById(`tally_${player}`)
-    //        if(tally){
-    //            tally.innerText = `${total}`
-    //        }
-    //    })
-    //}
-    let loser = document.getElementById('loser')
-    loser.innerHTML = "";
-    if (newState.loser >= 0 && newState.players.length > newState.loser) {
-        let div = document.createElement('div');
-        let p = document.createElement('p');
-        p.innerText = newState.players[newState.loser];
-        p.className = "losername"
-        div.appendChild(p);
-        if (newState.players[newState.loser] !== 'PRELIMS' && newState.players[newState.loser] !== 'FINALS') {
-            let pointTally = document.createElement('span')
-            pointTally.id = `tally_${newState.players[newState.loser]}`;
-            pointTally.style.fontWeight = "bolder";
-            if (newState.points && newState.points[newState.players[newState.loser]]) {
-                pointTally.innerText = ` ${newState.points[newState.players[newState.loser]]}`;
-            }
-            else {
-                pointTally.innerText = " 0";
-            }
-            div.appendChild(pointTally)
-            let minusButton = document.createElement('button');
-            minusButton.className = "loserbutton";
-            minusButton.type = 'button';
-            minusButton.innerText = '-🍓';
-            minusButton.value = newState.players[newState.loser];
-            minusButton.onclick = () => removePoint(newState.players[newState.loser]);
-            div.appendChild(minusButton);
-            let plusButton = document.createElement('button');
-            plusButton.className = "loserbutton";
-            plusButton.type = 'button';
-            plusButton.innerText = '+🍓';
-            plusButton.value = newState.players[newState.loser];
-            plusButton.onclick = () => addPoint(newState.players[newState.loser]);
-            div.appendChild(plusButton);
-            let minusRdmButton = document.createElement('button');
-            minusRdmButton.className = "loserbutton";
-            minusRdmButton.type = 'button';
-            minusRdmButton.innerText = '+🐦';
-            minusRdmButton.value = newState.players[newState.loser];
-            minusRdmButton.onclick = () => removeRedeem(newState.players[newState.loser]);
-            div.appendChild(minusRdmButton);
-            let plusRdmButton = document.createElement('button');
-            plusRdmButton.className = "loserbutton";
-            plusRdmButton.type = 'button';
-            plusRdmButton.innerText = '+🐦';
-            plusRdmButton.value = newState.players[newState.loser];
-            plusRdmButton.onclick = () => addRedeem(newState.players[newState.loser]);
-            div.appendChild(plusRdmButton);
+        let loser = document.getElementById('loser')
+        loser.innerHTML = '';
+        if (loserEl) {
+            loser.appendChild(loserEl);
         }
-        let unloseButton = document.createElement('button');
-        unloseButton.className = "loserbutton";
-        unloseButton.type = 'button';
-        unloseButton.innerText = 'Unlose';
-        unloseButton.onclick = () => markLoss(-1);
-        let removeButton = document.createElement('button');
-        removeButton.className = "loserbutton";
-        removeButton.type = 'button';
-        removeButton.innerText = '🗑️';
-        removeButton.value = newState.loser;
-        removeButton.onclick = () => removeLast(removeButton.value);
-        div.appendChild(unloseButton);
-        div.appendChild(removeButton);
-        loser.appendChild(div);
     }
     //if (state.objective != newState.objective && newState.objective) {
     //    let div = document.getElementById('currentObjective');
@@ -196,17 +215,16 @@ function addPlayer() {
     }
 }
 
-function removeLast(index) {
-    x.send(JSON.stringify({ type: "removePlayer", content: index }));
-    x.send(JSON.stringify({ type: "losePlayer", content: -1 }));
-}
-
 function removePlayer(index) {
     x.send(JSON.stringify({ type: "removePlayer", content: index }));
 }
 
 function markLoss(index) {
     x.send(JSON.stringify({ type: "losePlayer", content: index }));
+    if (index === -1) {
+        let loser = document.getElementById('loser')
+        loser.innerHTML = '';
+    }
 }
 
 function triggerPrelims() {
