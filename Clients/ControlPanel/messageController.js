@@ -1,6 +1,5 @@
 var x = new WebSocket('ws://' + location.host);
 var state = {};
-var currentLevel = "any%";
 x.addEventListener('open', function (event) {
     console.log("Opened Socket");
 });
@@ -8,7 +7,7 @@ x.addEventListener('message', function (event) {
     console.debug("Message Recieved:", event);
     let message = JSON.parse(event.data);
     if (message.type === 'state') {
-        updateState({ ...message, level: currentLevel });
+        updateState(message);
     }
     if (message.type === 'system') {
         console.log("Recieved System Event: ", message.content)
@@ -21,9 +20,7 @@ function changeLevel(){
 
 function updateLevel(level) {
     if (/any%|9|[1-8][a-c]/.test(level)){
-        document.getElementById("currentLevel").value = level;
-        currentLevel = level;
-        updateState({ ...state, level: currentLevel })
+        x.send(JSON.stringify({ type: "changeLevel", content: level }))
     }
 }
 
@@ -213,7 +210,8 @@ function updateState(newState) {
 
         let cps = document.getElementById("checkpoints");
         cps.innerHTML = "";
-        if(/^[1-8][a-c]|9$/.test(newState.level)){
+        if(/^any%|[1-8][a-c]|9$/.test(newState.level)){
+            document.getElementById("currentLevel").value = newState.level;
             let levelinfo = newState.info?.levels[newState.level];
             if(levelinfo?.fun){
                 let fun = document.createElement('p');

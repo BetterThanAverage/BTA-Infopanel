@@ -26,6 +26,7 @@ const messageTypes = {
     addRedeem: "addRedeem",
     removeRedeem: "removeRedeem",
     toggleLevel: "toggleLevel",
+    changeLevel: "changeLevel",
     startTimer: "startTimer",
     pauseTimer: "pauseTimer"
 }
@@ -139,6 +140,7 @@ var state = {
             'c': true
         },
     },
+    level: 'any%',
     timer: {
         isRunning: false,
         duration: 0,
@@ -299,6 +301,12 @@ wsServer.on('connection', socket => {
                 if (state.levels[chapter] !== undefined && state.levels[chapter][side] !== undefined) {
                     state.levels[chapter][side] = !state.levels[chapter][side];
                 }
+            }
+        }
+        else if (data.type === messageTypes.changeLevel) {
+            let l = data.content;
+            if (/any%|9|[1-8][a-c]/.test(l)){
+                state.level = l;
             }
         }
         else if (data.type === messageTypes.startTimer) {
