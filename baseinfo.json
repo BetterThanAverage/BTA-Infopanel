@@ -1,0 +1,236 @@
+{
+    "players": {
+        "Example1": {
+            "1a": "2m00s",
+            "1b": "...",
+            "1c": "...",
+            "...": "...",
+            "8b": "4m00s",
+            "8c": "1m00s",
+            "9": "16m00s",
+            "fun": "Fun facts about this player"
+        },
+        "Example2": {
+            "...": "..."
+        }
+    },
+    "divisions": {
+        "blue": [
+            "Example1",
+            "Example2"
+        ]
+    },
+    "levels": {
+        "1a": {
+            "cps": [
+                "Start",
+                "Crossing",
+                "Chasm"
+            ],
+            "fun": ""
+        },
+        "1b": {
+            "cps": [
+                "Start",
+                "Contraption",
+                "Scrap Pit"
+            ],
+            "fun": ""
+        },
+        "1c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "2a": {
+            "cps": [
+                "Start",
+                "Intervention",
+                "Awake"
+            ],
+            "fun": ""
+        },
+        "2b": {
+            "cps": [
+                "Start",
+                "Combination Lock",
+                "Dream Altar"
+            ],
+            "fun": ""
+        },
+        "2c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "3a": {
+            "cps": [
+                "Start",
+                "Huge Mess",
+                "Elevator Shaft",
+                "Presidential Suite"
+            ],
+            "fun": ""
+        },
+        "3b": {
+            "cps": [
+                "Start",
+                "Staff Quarters",
+                "Library",
+                "Rooftop"
+            ],
+            "fun": ""
+        },
+        "3c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "4a": {
+            "cps": [
+                "Start",
+                "Shrine",
+                "Old Trail",
+                "Cliff Face"
+            ],
+            "fun": ""
+        },
+        "4b": {
+            "cps": [
+                "Start",
+                "Stepping Stones",
+                "Gusty Canyon",
+                "Eye of the Storm"
+            ],
+            "fun": ""
+        },
+        "4c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "5a": {
+            "cps": [
+                "Start",
+                "Depths",
+                "Unravelling",
+                "Search",
+                "Rescue"
+            ],
+            "fun": ""
+        },
+        "5b": {
+            "cps": [
+                "Start",
+                "Central Chamber",
+                "Through the Mirror",
+                "Mix Master"
+            ],
+            "fun": ""
+        },
+        "5c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "6a": {
+            "cps": [
+                "Start",
+                "Lake",
+                "Hollows",
+                "Reflection",
+                "Rock Bottom",
+                "Resolution"
+            ],
+            "fun": ""
+        },
+        "6b": {
+            "cps": [
+                "Start",
+                "Reflection",
+                "Rock Bottom",
+                "Reprieve"
+            ],
+            "fun": ""
+        },
+        "6c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "7a": {
+            "cps": [
+                "Start",
+                "500 M",
+                "1000 M",
+                "1500 M",
+                "2000 M",
+                "2500 M",
+                "3000 M"
+            ],
+            "fun": ""
+        },
+        "7b": {
+            "cps": [
+                "Start",
+                "500 M",
+                "1000 M",
+                "1500 M",
+                "2000 M",
+                "2500 M",
+                "3000 M"
+            ],
+            "fun": ""
+        },
+        "7c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "8a": {
+            "cps": [
+                "Start",
+                "Into the Core",
+                "Hot and Cold",
+                "Heart of the Mountain"
+            ],
+            "fun": ""
+        },
+        "8b": {
+            "cps": [
+                "Start",
+                "Into the Core",
+                "Burning or Freezing",
+                "Heartbeat"
+            ],
+            "fun": ""
+        },
+        "8c": {
+            "cps": [
+                "Start"
+            ],
+            "fun": ""
+        },
+        "9": {
+            "cps": [
+                "Start",
+                "Singular",
+                "Power Source",
+                "Remembered",
+                "Event Horizon",
+                "Determination",
+                "Stubbornness",
+                "Reconcilliation",
+                "Farewell"
+            ],
+            "fun": ""
+        }
+    }
+}

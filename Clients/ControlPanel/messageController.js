@@ -1,5 +1,6 @@
 var x = new WebSocket('ws://' + location.host);
 var state = {};
+var currentLevel = "any%";
 x.addEventListener('open', function (event) {
     console.log("Opened Socket");
 });
@@ -7,19 +8,31 @@ x.addEventListener('message', function (event) {
     console.debug("Message Recieved:", event);
     let message = JSON.parse(event.data);
     if (message.type === 'state') {
-        updateState(message);
+        updateState({ ...message, level: currentLevel });
     }
     if (message.type === 'system') {
         console.log("Recieved System Event: ", message.content)
     }
 });
 
+function changeLevel(){
+    updateLevel(document.getElementById("currentLevel").value);
+}
+
+function updateLevel(level) {
+    if (/any%|9|[1-8][a-c]/.test(level)){
+        document.getElementById("currentLevel").value = level;
+        currentLevel = level;
+        updateState({ ...state, level: currentLevel })
+    }
+}
+
 function isSpecialPlayer(playerName) {
     return playerName === 'PRELIMS' || playerName === 'FINALS' || playerName === 'SUDDEN DEATH'
 }
 
 function updateState(newState) {
-    if (state.players != newState.players || state.loser != newState.loser) {
+    if (state.players != newState.players || state.loser != newState.loser || state.level != newState.level) {
         let nodes = [];
         let loserEl;
         let idx = 0;
@@ -77,12 +90,39 @@ function updateState(newState) {
                 playerstats.appendChild(redeemTally)
                 //#endregion redeems
 
+                //#region PB
+                let PB = document.createElement('p')
+                PB.id = `PB_${player}`;
+                try {
+                    PB.innerText = `${newState.level}: ${newState.info?.players[player][newState.level] || 'N/A'}`;
+                } catch {
+                    PB.innerText = 'err';
+                }
+                playerstats.appendChild(PB);
+                //#endregion PB
+
                 playerheader.appendChild(playerstats);
             }
             //#endregion stats
 
             playercard.appendChild(playerheader);
             //#endregion header
+
+            //#region text
+            let cardtext = document.createElement('div');
+            cardtext.className = "cardtext";
+            
+            //#region funfact
+            if(newState.info?.players[player]?.fun){
+                let fun = document.createElement('p')
+                fun.id = `fun_${player}`
+                fun.innerText = newState.info.players[player].fun
+                cardtext.appendChild(fun);
+            }
+            //#endregion funfact
+
+            playercard.appendChild(cardtext);
+            //#endregion text
 
             //#region 1st action buttons
             if (!isSpecialPlayer(player)) {
@@ -170,6 +210,28 @@ function updateState(newState) {
         if (loserEl) {
             loser.appendChild(loserEl);
         }
+
+        let cps = document.getElementById("checkpoints");
+        cps.innerHTML = "";
+        if(/^[1-8][a-c]|9$/.test(newState.level)){
+            let levelinfo = newState.info?.levels[newState.level];
+            if(levelinfo?.fun){
+                let fun = document.createElement('p');
+                fun.className = "facts"
+                fun.innerText = levelinfo.fun;
+                cps.appendChild(fun);
+            }
+            if(levelinfo?.cps){
+                let checks = document.createElement('div');
+                checks.className = "checkpointlist"
+                for(cp of levelinfo.cps){
+                    let cpp = document.createElement('p');
+                    cpp.innerText = cp;
+                    checks.appendChild(cpp);
+                }
+                cps.appendChild(checks);
+            }
+        }
     }
     //if (state.objective != newState.objective && newState.objective) {
     //    let div = document.getElementById('currentObjective');
@@ -232,6 +294,7 @@ function triggerPrelims() {
 }
 function triggerFinals() {
     x.send(JSON.stringify({ type: "triggerFinals" }));
+    updateLevel("9");
 }
 
 function triggerObjective() {
@@ -259,6 +322,7 @@ function removeRedeem(player) {
 
 function triggerLevelToggle(id) {
     x.send(JSON.stringify({ type: "toggleLevel", content: id }))
+    updateLevel(id);
 }
 
 function sendStartTimer() {

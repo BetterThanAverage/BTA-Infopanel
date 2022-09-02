@@ -2,7 +2,8 @@ const express = require('express');
 const ws = require('ws');
 const fs = require('fs');
 
-const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
+const info = JSON.parse(fs.readFileSync("baseinfo.json"));
+//const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
 const objectives = JSON.parse(fs.readFileSync("objectives.json"))
 const port = 8080;
 
@@ -142,7 +143,8 @@ var state = {
         isRunning: false,
         duration: 0,
         endTime: null
-    }
+    },
+    info: info
 };
 
 var clients = [];
@@ -188,8 +190,8 @@ wsServer.on('connection', socket => {
         }
         else if (data.type === messageTypes.triggerPrelims) {
             state.players = ['PRELIMS'];
-            if (divisions[state.currentHeart]) {
-                state.players = state.players.concat(divisions[state.currentHeart])
+            if (info.divisions[state.currentHeart]) {
+                state.players = state.players.concat(info.divisions[state.currentHeart])
             }
             state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
             state.loser = state.players.indexOf('PRELIMS');

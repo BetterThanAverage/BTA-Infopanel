@@ -1,24 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>BTA Control Panel</title>
     <link rel="stylesheet" type="text/css" href="/base.css">
     <link rel="stylesheet" type="text/css" href="index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
+
 <body>
     <div class="divisionbuttons">
         <button type="button" style="background-color: lightblue;" onclick="sendUpdateHeart('blue')">Blue</button>
         <button type="button" style="background-color: lightcoral;" onclick="sendUpdateHeart('red')">Red</button>
         <button type="button" style="background-color: lightyellow;" onclick="sendUpdateHeart('yellow')">Yellow</button>
         <button type="button" style="background-color: lightgray;" onclick="sendUpdateHeart('cracked')">Cracked</button>
-        <button type="button" style="background-color: black; color:white" onclick="sendUpdateHeart('lunar')">Lunar</button>
+        <button type="button" style="background-color: black; color:white"
+            onclick="sendUpdateHeart('lunar')">Lunar</button>
     </div>
     <div class="timercontrols">
         <button type="button" onclick="sendStartTimer()">Start</button>
         <button type="button" onclick="sendPauseTimer()">Pause</button>
     </div>
     <div class="playercontrols">
+        <select name="currentLevel" id="currentLevel" value="any%" onchange="changeLevel()">
+            <optgroup label="Full Game">
+                <option value="any%">any%</option>
+            </optgroup>
+            <optgroup label="ILs">
+                <option value="1a">1a</option>
+                <option value="1b">1b</option>
+                <option value="1c">1c</option>
+                <option value="2a">2a</option>
+                <option value="2b">2b</option>
+                <option value="2c">2c</option>
+                <option value="3a">3a</option>
+                <option value="3b">3b</option>
+                <option value="3c">3c</option>
+                <option value="4a">4a</option>
+                <option value="4b">4b</option>
+                <option value="4c">4c</option>
+                <option value="5a">5a</option>
+                <option value="5b">5b</option>
+                <option value="5c">5c</option>
+                <option value="6a">6a</option>
+                <option value="6b">6b</option>
+                <option value="6c">6c</option>
+                <option value="7a">7a</option>
+                <option value="7b">7b</option>
+                <option value="7c">7c</option>
+                <option value="8a">8a</option>
+                <option value="8b">8b</option>
+                <option value="8c">8c</option>
+                <option value="9">9</option>
+            </optgroup>
+        </select>
+        <div id="checkpoints"></div>
         <form>
             <input type="text" placeholder="Add Player" id="playeradder" autofocus />
             <button type="button" onclick="addPlayer()">Add</button>
