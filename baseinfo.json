@@ -1,24 +1,62 @@
 {
     "players": {
-        "Example1": {
-            "1a": "2m00s",
-            "1b": "...",
-            "1c": "...",
-            "...": "...",
-            "8b": "4m00s",
-            "8c": "1m00s",
-            "9": "16m00s",
-            "fun": "Fun facts about this player"
-        },
-        "Example2": {
-            "...": "..."
-        }
+        "Tiyo": {},
+        "ThunderVolt": {},
+        "Isaac": {},
+        "rain": {},
+        "Vapo": {},
+        "Nesselschweif <3": {},
+        "Verdal": {},
+        "JimmyClyde": {},
+        "Thalant": {},
+        "Goombs": {},
+        "[YT] Cubeblazer(CFOP-9 PB3.944)": {},
+        "SaltyJerms": {},
+        "Goosetav": {},
+        "Mr.Malek": {},
+        "Candy Cal-Amity": {},
+        "Wibs": {},
+        "IckleChris": {},
+        "Sevadra": {},
+        "Windrunner": {},
+        "BlueMushroom64": {},
+        "sodapop system": {},
+        "kwan22": {},
+        "RakiTTV": {},
+        "Plex": {},
+        "TS Chandler5913": {},
+        "nO0o0Oo0b": {},
+        "Epyc": {},
+        "PaulvonhooverIII": {},
+        "carrarium": {},
+        "UnderTempo": {},
+        "Softtoast ": {},
+        "Nene22": {},
+        "OwenPG": {},
+        "SirNewt": {},
+        "✨ad✨": {},
+        "Katriii": {},
+        "Traynack": {},
+        "Dukenursefish": {},
+        "ATunaOnWhite": {},
+        "DearThrowaway": {},
+        "BurgerSlayin": {},
+        "zaprey": {},
+        "Dr. Køffee - estrowogen edition": {},
+        "Brambon": {},
+        "Alyssa_Lee": {},
+        "Kaitlyn Biscuit": {},
+        "Boss219": {},
+        "Plixona": {},
+        "maridon": {},
+        "luffy133": {}
     },
     "divisions": {
-        "blue": [
-            "Example1",
-            "Example2"
-        ]
+        "blue": ["rain", "Nesselschweif", "Cubeblazer", "Epyc", "Mr.Malek", "Softtoast", "✨ad✨", "Traynack", "Dukenursefish", "Dr. Køffee - estrowogen edition", "Alyssa_Lee", "Kaitlyn Biscuit"],
+        "red": ["BlueMushroom64", "Candy Cal-Amity", "sodapop", "nO0o0Oo0b", "PaulvonhooverIII", "ATunaOnWhite", "DearThrowaway", "BurgerSlayin"],
+        "yellow": ["ThunderVolt", "SaltyJerms", "Sevadra", "Windrunner", "TS Chandler5913", "Brambon", "Plixona", "Nene22", "SirNewt", "maridon"],
+        "cracked": ["luffy133", "Goosetav", "Wibs", "IckleChris", "kwan22", "Plex", "UnderTempo", "OwenPG", "Katriii", "Boss219", "JimmyClyde"],
+        "lunar": ["Thalant", "Tiyo", "Isaac", "Vapo", "Verdal", "Goombs", "RakiTTV", "zaprey", "carrarium", "Boss219"]
     },
     "levels": {
         "1a": {

@@ -1,6 +1,8 @@
 const express = require('express');
 const ws = require('ws');
 const fs = require('fs');
+const Mutex = require('async-mutex').Mutex;
+const mutex = new Mutex();
 
 const info = JSON.parse(fs.readFileSync("baseinfo.json"));
 //const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
@@ -28,7 +30,8 @@ const messageTypes = {
     toggleLevel: "toggleLevel",
     changeLevel: "changeLevel",
     startTimer: "startTimer",
-    pauseTimer: "pauseTimer"
+    pauseTimer: "pauseTimer",
+    changeTimer: "changeTimer"
 }
 
 const levels = {
@@ -156,177 +159,190 @@ wsServer.on('connection', socket => {
     socket.send(JSON.stringify(state));
     clients.push(socket);
     socket.on('message', (event) => {
-        console.debug("Message Recieved:", event.toString());
-        let data = JSON.parse(event.toString());
-        if (data.type === messageTypes.updateHeart) {
-            state.currentHeart = data.content;
-        }
-        else if (data.type === messageTypes.addPlayer) {
-            let loser = ""
-            if (state.loser >= 0) {
-                loser = state.players[state.loser]
+        mutex.runExclusive(() => {
+            console.debug("Message Recieved:", event.toString());
+            let data = JSON.parse(event.toString());
+            if (data.type === messageTypes.updateHeart) {
+                state.currentHeart = data.content;
             }
-            state.players.push(data.content);
-            state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-            if (loser) {
-                state.loser = state.players.indexOf(loser);
-            }
-            if (!state.timer.isRunning) {
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
-            }
-        }
-        else if (data.type === messageTypes.removePlayer) {
-            state.players.splice(data.content, 1);
-            delete state.points[data.content];
-            delete state.redeems[data.content];
-            if (state.loser == data.content)
-                state.loser = -1;
-            if (state.loser > data.content)
-                state.loser -= 1;
-            if (!state.timer.isRunning) {
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
-            }
-        }
-        else if (data.type === messageTypes.losePlayer) {
-            state.loser = parseInt(data.content);
-        }
-        else if (data.type === messageTypes.triggerPrelims) {
-            state.players = ['PRELIMS'];
-            if (info.divisions[state.currentHeart]) {
-                state.players = state.players.concat(info.divisions[state.currentHeart])
-            }
-            state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-            state.loser = state.players.indexOf('PRELIMS');
-            state.points = {}
-            state.redeems = {}
-            state.levels = {
-                '1': {
-                    'r': true,
-                    'a': false,
-                    'b': true,
-                    'c': true
-                },
-                '2': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '3': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '4': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '5': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '6': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '7': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-                '8': {
-                    'r': true,
-                    'a': true,
-                    'b': true,
-                    'c': true
-                },
-            }
-            state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60;
-            state.timer.isRunning = false;
-        }
-        else if (data.type === messageTypes.triggerFinals) {
-            state.players.push('FINALS')
-            state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-            state.loser = state.players.indexOf('FINALS');
-            state.timer.duration = 15 * 60;
-            state.timer.isRunning = false;
-        }
-        else if (data.type === messageTypes.triggerObjective) {
-            if (objectives[data.content] && Array.isArray(objectives[data.content])) {
-                let l = objectives[data.content];
-                state.objective = l[Math.floor((Math.random() * l.length))];
-                state.objective['chosenChapter'] = data.content;
-            }
-        }
-        else if (data.type === messageTypes.clearObjective) {
-            state.objective = null
-        }
-        else if (data.type === messageTypes.addPoint) {
-            if (state.points[data.content])
-                state.points[data.content]++;
-            else
-                state.points[data.content] = 1;
-        }
-        else if (data.type === messageTypes.removePoint) {
-            if (state.points[data.content])
-                state.points[data.content]--;
-            else
-                state.points[data.content] = -1;
-        }
-        else if (data.type === messageTypes.addRedeem) {
-            if (state.redeems[data.content])
-                state.redeems[data.content]++;
-            else
-                state.redeems[data.content] = 1;
-        }
-        else if (data.type === messageTypes.removeRedeem) {
-            if (state.redeems[data.content])
-                state.redeems[data.content]--;
-            else
-                state.redeems[data.content] = -1;
-        }
-        else if (data.type === messageTypes.toggleLevel) {
-            let l = data.content;
-            if (typeof (l) === 'string' && l.length === 2) {
-                let chapter = l[0];
-                let side = l[1];
-                if (state.levels[chapter] !== undefined && state.levels[chapter][side] !== undefined) {
-                    state.levels[chapter][side] = !state.levels[chapter][side];
+            else if (data.type === messageTypes.addPlayer) {
+                let loser = ""
+                if (state.loser >= 0) {
+                    loser = state.players[state.loser]
+                }
+                state.players.push(data.content);
+                state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+                if (loser) {
+                    state.loser = state.players.indexOf(loser);
+                }
+                if (!state.timer.isRunning) {
+                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
                 }
             }
-        }
-        else if (data.type === messageTypes.changeLevel) {
-            let l = data.content;
-            if (/any%|9|[1-8][a-c]/.test(l)){
-                state.level = l;
-            }
-        }
-        else if (data.type === messageTypes.startTimer) {
-            if (!state.timer.isRunning) {
-                state.timer.endTime = new Date(new Date().getTime() + state.timer.duration * 1000)
-                state.timer.isRunning = true
-            }
-            else {
-                state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
-            }
-        }
-        else if (data.type === messageTypes.pauseTimer) {
-            if (state.timer.isRunning) {
-                if (state.timer.endTime) {
-                    state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+            else if (data.type === messageTypes.removePlayer) {
+                state.players.splice(data.content, 1);
+                delete state.points[data.content];
+                delete state.redeems[data.content];
+                if (state.loser == data.content)
+                    state.loser = -1;
+                if (state.loser > data.content)
+                    state.loser -= 1;
+                if (!state.timer.isRunning) {
+                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
                 }
+            }
+            else if (data.type === messageTypes.losePlayer) {
+                state.loser = parseInt(data.content);
+            }
+            else if (data.type === messageTypes.triggerPrelims) {
+                state.players = ['PRELIMS'];
+                if (info.divisions[state.currentHeart]) {
+                    state.players = state.players.concat(info.divisions[state.currentHeart])
+                }
+                state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+                state.loser = state.players.indexOf('PRELIMS');
+                state.points = {}
+                state.redeems = {}
+                state.levels = {
+                    '1': {
+                        'r': true,
+                        'a': false,
+                        'b': true,
+                        'c': true
+                    },
+                    '2': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '3': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '4': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '5': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '6': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '7': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '8': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                }
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60;
                 state.timer.isRunning = false;
             }
-        }
-        broadcast(state);
+            else if (data.type === messageTypes.triggerFinals) {
+                state.players.push('FINALS')
+                state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+                state.loser = state.players.indexOf('FINALS');
+                state.timer.duration = 15 * 60;
+                state.timer.isRunning = false;
+            }
+            else if (data.type === messageTypes.triggerObjective) {
+                if (objectives[data.content] && Array.isArray(objectives[data.content])) {
+                    let l = objectives[data.content];
+                    state.objective = l[Math.floor((Math.random() * l.length))];
+                    state.objective['chosenChapter'] = data.content;
+                }
+            }
+            else if (data.type === messageTypes.clearObjective) {
+                state.objective = null
+            }
+            else if (data.type === messageTypes.addPoint) {
+                if (state.points[data.content])
+                    state.points[data.content]++;
+                else
+                    state.points[data.content] = 1;
+            }
+            else if (data.type === messageTypes.removePoint) {
+                if (state.points[data.content])
+                    state.points[data.content]--;
+                else
+                    state.points[data.content] = -1;
+            }
+            else if (data.type === messageTypes.addRedeem) {
+                if (state.redeems[data.content])
+                    state.redeems[data.content]++;
+                else
+                    state.redeems[data.content] = 1;
+            }
+            else if (data.type === messageTypes.removeRedeem) {
+                if (state.redeems[data.content])
+                    state.redeems[data.content]--;
+                else
+                    state.redeems[data.content] = -1;
+            }
+            else if (data.type === messageTypes.toggleLevel) {
+                let l = data.content;
+                if (typeof (l) === 'string' && l.length === 2) {
+                    let chapter = l[0];
+                    let side = l[1];
+                    if (state.levels[chapter] !== undefined && state.levels[chapter][side] !== undefined) {
+                        state.levels[chapter][side] = !state.levels[chapter][side];
+                    }
+                }
+            }
+            else if (data.type === messageTypes.changeLevel) {
+                let l = data.content;
+                if (/any%|9|[1-8][a-c]/.test(l)) {
+                    state.level = l;
+                }
+            }
+            else if (data.type === messageTypes.startTimer) {
+                if (!state.timer.isRunning) {
+                    state.timer.endTime = new Date(new Date().getTime() + state.timer.duration * 1000)
+                    state.timer.isRunning = true
+                }
+                else {
+                    state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+                }
+            }
+            else if (data.type === messageTypes.pauseTimer) {
+                if (state.timer.isRunning) {
+                    if (state.timer.endTime) {
+                        state.timer.duration = (new Date(state.timer.endTime).getTime() - new Date().getTime()) / 1000
+                    }
+                    state.timer.isRunning = false;
+                }
+            }
+            else if (data.type === messageTypes.changeTimer) {
+                let newDuration = data.content;
+                console.log("Updating time to:", newDuration);
+                if (!state.timer.isRunning) {
+                    try {
+                        let [h, m, s] = newDuration.split(":");
+                        state.timer.duration = (h * 3600) + (m * 60) + (s * 1);
+                    }
+                    catch (err) { console.error(err) }
+                }
+            }
+            broadcast(state);
+        })
     });
 });
 

@@ -18,6 +18,11 @@
             onclick="sendUpdateHeart('lunar')">Lunar</button>
     </div>
     <div class="timercontrols">
+        <input type="number" min="0" max="12" placeholder="H" id="timerEntryHrs"/>
+        <input type="number" min="0" max="59" placeholder="M" id="timerEntryMns"/>
+        <input type="number" min="0" max="59" placeholder="S" id="timerEntryScs"/>
+        <button type="button" onclick="sendChangeTimer()">Enter Time</button>
+        <br>
         <button type="button" onclick="sendStartTimer()">Start</button>
         <button type="button" onclick="sendPauseTimer()">Pause</button>
     </div>

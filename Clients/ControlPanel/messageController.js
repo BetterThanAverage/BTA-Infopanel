@@ -329,3 +329,16 @@ function sendStartTimer() {
 function sendPauseTimer() {
     x.send(JSON.stringify({ type: "pauseTimer" }));
 }
+
+function sendChangeTimer(){
+    let hours = document.getElementById("timerEntryHrs");
+    let minutes = document.getElementById("timerEntryMns");
+    let seconds = document.getElementById("timerEntryScs");
+    if(!state.timer.isRunning && (hours.value || minutes.value || seconds.value)){
+        let time = `${hours.value || 0}:${minutes.value || 0}:${seconds.value || 0}`;
+        x.send(JSON.stringify({type: "changeTimer", content: time}));
+        hours.value = "";
+        minutes.value = "";
+        seconds.value = "";
+    }
+}
