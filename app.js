@@ -253,7 +253,14 @@ wsServer.on('connection', socket => {
                         'c': true
                     },
                 }
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60;
+                let multiplier = 15;
+                if(state.currentHeart === 'yellow' || state.currentHeart === 'cracked'){
+                    multiplier = 13
+                }
+                else if (state.currentHeart === 'lunar'){
+                    multiplier = 12
+                }
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * multiplier * 60;
                 state.timer.isRunning = false;
             }
             else if (data.type === messageTypes.triggerFinals) {

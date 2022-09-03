@@ -49,14 +49,71 @@
         "Boss219": {},
         "Plixona": {},
         "maridon": {},
-        "luffy133": {}
+        "luffy133": {},
+        "Poncle": {}
     },
     "divisions": {
-        "blue": ["rain", "Nesselschweif", "Cubeblazer", "Epyc", "Mr.Malek", "Softtoast", "✨ad✨", "Traynack", "Dukenursefish", "Dr. Køffee - estrowogen edition", "Alyssa_Lee", "Kaitlyn Biscuit"],
-        "red": ["BlueMushroom64", "Candy Cal-Amity", "sodapop", "nO0o0Oo0b", "PaulvonhooverIII", "ATunaOnWhite", "DearThrowaway", "BurgerSlayin"],
-        "yellow": ["ThunderVolt", "SaltyJerms", "Sevadra", "Windrunner", "TS Chandler5913", "Brambon", "Plixona", "Nene22", "SirNewt", "maridon"],
-        "cracked": ["luffy133", "Goosetav", "Wibs", "IckleChris", "kwan22", "Plex", "UnderTempo", "OwenPG", "Katriii", "Boss219", "JimmyClyde"],
-        "lunar": ["Thalant", "Tiyo", "Isaac", "Vapo", "Verdal", "Goombs", "RakiTTV", "zaprey", "carrarium", "Boss219"]
+        "blue": [
+            "rain",
+            "Cubeblazer",
+            "Epyc",
+            "Mr.Malek",
+            "✨ad✨",
+            "Traynack",
+            "Dukenursefish",
+            "Dr. Køffee - estrowogen edition",
+            "Alyssa_Lee",
+            "Kaitlyn Biscuit"
+        ],
+        "red": [
+            "BlueMushroom64",
+            "Candy Cal-Amity",
+            "nO0o0Oo0b",
+            "PaulvonhooverIII",
+            "ATunaOnWhite",
+            "DearThrowaway",
+            "Softtoast",
+            "Nesselschweif",
+            "BurgerSlayin"
+        ],
+        "yellow": [
+            "ThunderVolt",
+            "SaltyJerms",
+            "Sevadra",
+            "Windrunner",
+            "TS Chandler5913",
+            "Brambon",
+            "Plixona",
+            "Nene22",
+            "SirNewt",
+            "Wibs",
+            "maridon"
+        ],
+        "cracked": [
+            "luffy133",
+            "Goosetav",
+            "IckleChris",
+            "kwan22",
+            "Plex",
+            "UnderTempo",
+            "OwenPG",
+            "Katriii",
+            "Boss219",
+            "JimmyClyde",
+            "Poncle"
+        ],
+        "lunar": [
+            "Thalant",
+            "Tiyo",
+            "Isaac",
+            "Vapo",
+            "Verdal",
+            "Goombs",
+            "RakiTTV",
+            "zaprey",
+            "carrarium",
+            "Boss219"
+        ]
     },
     "levels": {
         "1a": {
