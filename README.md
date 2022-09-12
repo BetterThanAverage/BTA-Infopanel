@@ -4,11 +4,11 @@ This project provides infopanes & a control panel for OBS web sources, allowing 
 
 ## Running
 
-Install nodejs.
+1. Install nodejs.
 
-`npm install`
+2. `npm install`
 
-`npm start`
+3. `npm start`
 
 It's that simple.
 
