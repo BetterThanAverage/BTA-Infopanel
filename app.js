@@ -262,6 +262,7 @@ wsServer.on('connection', socket => {
                 }
                 state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * multiplier * 60;
                 state.timer.isRunning = false;
+                state.level = "any%"
             }
             else if (data.type === messageTypes.triggerFinals) {
                 state.players.push('FINALS')

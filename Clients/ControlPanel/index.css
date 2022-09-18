@@ -50,9 +50,9 @@ select {
     background-color: #eee;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 5px;
+    margin: .5px;
     overflow: hidden;
-    max-width: 225px;
+    max-width: 185px;
 }
 .playercard .header{
     width: 100%;
@@ -84,6 +84,10 @@ select {
     text-align: center;
     display:block;
 }
+.playercard .cardtext br{
+    display: block;
+    margin: 3px 0;
+}
 .playercard .actionline {
     display: block;
     width: 100%;
@@ -91,6 +95,6 @@ select {
 }
 .playercard .actionline .actionbutton {
     background-color: lightsalmon;
-    margin: 1px;
+    margin: .5px;
     border-radius: 10px;
 }
