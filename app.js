@@ -5,8 +5,6 @@ const Mutex = require('async-mutex').Mutex;
 const mutex = new Mutex();
 
 const info = JSON.parse(fs.readFileSync("baseinfo.json"));
-//const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
-const objectives = JSON.parse(fs.readFileSync("objectives.json"))
 const port = 8080;
 
 const app = express();
@@ -17,139 +15,29 @@ const messageTypes = {
     updateHeart: "updateHeart",
     addPlayer: "addPlayer",
     removePlayer: "removePlayer",
-    losePlayer: "losePlayer",
     refresh: "refresh",
-    triggerPrelims: "triggerPrelims",
-    triggerFinals: "triggerFinals",
-    triggerObjective: "triggerObjective",
-    clearObjective: "clearObjective",
-    addPoint: "addPoint",
-    removePoint: "removePoint",
-    addRedeem: "addRedeem",
-    removeRedeem: "removeRedeem",
-    toggleLevel: "toggleLevel",
-    changeLevel: "changeLevel",
     startTimer: "startTimer",
     pauseTimer: "pauseTimer",
-    changeTimer: "changeTimer"
-}
-
-const levels = {
-    '1': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '2': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '3': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '4': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '5': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '6': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '7': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
-    '8': {
-        'r': true,
-        'a': true,
-        'b': true,
-        'c': true
-    },
+    changeTimer: "changeTimer",
+    initiateDivision: "initiateDivision",
+    addPlayerToMatch: "addPlayerToMatch",
+    setActiveMatch: "setActiveMatch",
+    changeScore: "changeScore",
+    clearMatch: "clearMatch",
 }
 
 var state = {
     type: 'state',
-    currentHeart: 'blue',
-    players: ['PRELIMS'],
-    loser: 0,
-    objective: null,
-    points: {},
-    redemptions: {},
-    levels: {
-        '1': {
-            'r': true,
-            'a': false,
-            'b': true,
-            'c': true
-        },
-        '2': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '3': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '4': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '5': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '6': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '7': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-        '8': {
-            'r': true,
-            'a': true,
-            'b': true,
-            'c': true
-        },
-    },
-    level: 'any%',
+    currentHeart: 'sapphire',
+    players: [],
     timer: {
         isRunning: false,
         duration: 0,
         endTime: null
     },
-    info: info
+    info: info,
+    matchups: [],
+    activeMatchup: -1
 };
 
 var clients = [];
@@ -166,160 +54,29 @@ wsServer.on('connection', socket => {
                 state.currentHeart = data.content;
             }
             else if (data.type === messageTypes.addPlayer) {
-                let loser = ""
-                if (state.loser >= 0) {
-                    loser = state.players[state.loser]
-                }
                 state.players.push(data.content);
                 state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-                if (loser) {
-                    state.loser = state.players.indexOf(loser);
-                }
-                if (!state.timer.isRunning) {
-                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
-                }
             }
             else if (data.type === messageTypes.removePlayer) {
-                state.players.splice(data.content, 1);
-                delete state.points[data.content];
-                delete state.redeems[data.content];
-                if (state.loser == data.content)
-                    state.loser = -1;
-                if (state.loser > data.content)
-                    state.loser -= 1;
-                if (!state.timer.isRunning) {
-                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
+                let [player] = state.players.splice(data.content, 1);
+                let seedidx = state.seeds.indexOf(player);
+                if (seedidx) {
+                    state.seeds.splice(seedidx, 1);
+                }
+                else {
+                    state.seeds = [];
                 }
             }
-            else if (data.type === messageTypes.losePlayer) {
-                state.loser = parseInt(data.content);
-            }
-            else if (data.type === messageTypes.triggerPrelims) {
-                state.players = ['PRELIMS'];
+            else if (data.type === messageTypes.initiateDivision) {
                 if (info.divisions[state.currentHeart]) {
-                    state.players = state.players.concat(info.divisions[state.currentHeart])
+                    state.players = [...info.divisions[state.currentHeart]];
                 }
+                state.seeds = [];
                 state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-                state.loser = state.players.indexOf('PRELIMS');
-                state.points = {}
-                state.redeems = {}
-                state.levels = {
-                    '1': {
-                        'r': true,
-                        'a': false,
-                        'b': true,
-                        'c': true
-                    },
-                    '2': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '3': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '4': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '5': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '6': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '7': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                    '8': {
-                        'r': true,
-                        'a': true,
-                        'b': true,
-                        'c': true
-                    },
-                }
-                let multiplier = 15;
-                if(state.currentHeart === 'yellow' || state.currentHeart === 'cracked'){
-                    multiplier = 13
-                }
-                else if (state.currentHeart === 'lunar'){
-                    multiplier = 12
-                }
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * multiplier * 60;
+                state.timer.duration = 1500;
                 state.timer.isRunning = false;
-                state.level = "any%"
-            }
-            else if (data.type === messageTypes.triggerFinals) {
-                state.players.push('FINALS')
-                state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-                state.loser = state.players.indexOf('FINALS');
-                state.timer.duration = 15 * 60;
-                state.timer.isRunning = false;
-            }
-            else if (data.type === messageTypes.triggerObjective) {
-                if (objectives[data.content] && Array.isArray(objectives[data.content])) {
-                    let l = objectives[data.content];
-                    state.objective = l[Math.floor((Math.random() * l.length))];
-                    state.objective['chosenChapter'] = data.content;
-                }
-            }
-            else if (data.type === messageTypes.clearObjective) {
-                state.objective = null
-            }
-            else if (data.type === messageTypes.addPoint) {
-                if (state.points[data.content])
-                    state.points[data.content]++;
-                else
-                    state.points[data.content] = 1;
-            }
-            else if (data.type === messageTypes.removePoint) {
-                if (state.points[data.content])
-                    state.points[data.content]--;
-                else
-                    state.points[data.content] = -1;
-            }
-            else if (data.type === messageTypes.addRedeem) {
-                if (state.redeems[data.content])
-                    state.redeems[data.content]++;
-                else
-                    state.redeems[data.content] = 1;
-            }
-            else if (data.type === messageTypes.removeRedeem) {
-                if (state.redeems[data.content])
-                    state.redeems[data.content]--;
-                else
-                    state.redeems[data.content] = -1;
-            }
-            else if (data.type === messageTypes.toggleLevel) {
-                let l = data.content;
-                if (typeof (l) === 'string' && l.length === 2) {
-                    let chapter = l[0];
-                    let side = l[1];
-                    if (state.levels[chapter] !== undefined && state.levels[chapter][side] !== undefined) {
-                        state.levels[chapter][side] = !state.levels[chapter][side];
-                    }
-                }
-            }
-            else if (data.type === messageTypes.changeLevel) {
-                let l = data.content;
-                if (/any%|9|[1-8][a-c]/.test(l)) {
-                    state.level = l;
-                }
+                state.activeMatchup = -1;
+                state.matchups = [];
             }
             else if (data.type === messageTypes.startTimer) {
                 if (!state.timer.isRunning) {
@@ -347,6 +104,43 @@ wsServer.on('connection', socket => {
                         state.timer.duration = (h * 3600) + (m * 60) + (s * 1);
                     }
                     catch (err) { console.error(err) }
+                }
+            }
+            else if (data.type === messageTypes.addPlayerToMatch) {
+                let [playerName, playerInd, brackInd] = data.content;
+                if (!state.matchups[brackInd]) {
+                    state.matchups[brackInd] = {
+                        players: [undefined, undefined],
+                        points: [0, 0]
+                    }
+                }
+                for(let matchup of state.matchups) {
+                    if(matchup?.players){
+                        if(matchup.players[0] === playerName){
+                            matchup.players[0] = undefined;
+                        }
+                        if(matchup.players[1] === playerName){
+                            matchup.players[1] = undefined;
+                        }
+                    }
+                }
+                state.matchups[brackInd].players[playerInd] = playerName;
+            }
+            else if (data.type === messageTypes.setActiveMatch) {
+                let ind = data.content;
+                state.activeMatchup = ind;
+            }
+            else if (data.type === messageTypes.changeScore) {
+                let [playerInd, changeBy, brackInd] = data.content;
+                if (state.matchups[brackInd]) {
+                    state.matchups[brackInd].points[playerInd] += changeBy;
+                }
+            }
+            else if (data.type === messageTypes.clearMatch) {
+                let brackInd = data.content;
+                state.matchups[brackInd] = {
+                    players: [undefined, undefined],
+                    points: [0, 0]
                 }
             }
             broadcast(state);

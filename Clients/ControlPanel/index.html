@@ -10,128 +10,38 @@
 
 <body>
     <div class="divisionbuttons">
-        <button type="button" style="background-color: lightblue;" onclick="sendUpdateHeart('blue')">Blue</button>
-        <button type="button" style="background-color: lightcoral;" onclick="sendUpdateHeart('red')">Red</button>
-        <button type="button" style="background-color: lightyellow;" onclick="sendUpdateHeart('yellow')">Yellow</button>
-        <button type="button" style="background-color: lightgray;" onclick="sendUpdateHeart('cracked')">Cracked</button>
-        <button type="button" style="background-color: black; color:white"
-            onclick="sendUpdateHeart('lunar')">Lunar</button>
+        <button type="button" style="background-color: lightblue;"
+            onclick="sendUpdateHeart('sapphire')">Sapphire</button>
+        <button type="button" style="background-color: lightcoral;" onclick="sendUpdateHeart('ruby')">Ruby</button>
+        <button type="button" style="background-color: lightgrey;"
+            onclick="sendUpdateHeart('diamond')">Diamond</button>
+        <br>
+        <button type="button" style="background-color: red;" onclick="initiateDivision()">Initiate Division</button>
     </div>
     <div class="timercontrols">
-        <input type="number" min="0" max="12" placeholder="H" id="timerEntryHrs"/>
-        <input type="number" min="0" max="59" placeholder="M" id="timerEntryMns"/>
-        <input type="number" min="0" max="59" placeholder="S" id="timerEntryScs"/>
-        <button type="button" onclick="sendChangeTimer()">Enter Time</button>
+        <form onsubmit="return false">
+            <input type="number" min="0" max="12" placeholder="H" id="timerEntryHrs" />
+            <input type="number" min="0" max="59" placeholder="M" id="timerEntryMns" />
+            <input type="number" min="0" max="59" placeholder="S" id="timerEntryScs" />
+            <button type="submit" onclick="sendChangeTimer()">Enter Time</button>
+        </form>
         <br>
+        <button type="button" onclick="setTimer30Mins()">25 Mins.</button>
         <button type="button" onclick="sendStartTimer()">Start</button>
         <button type="button" onclick="sendPauseTimer()">Pause</button>
     </div>
     <div class="playercontrols">
-        <select name="currentLevel" id="currentLevel" value="any%" onchange="changeLevel()">
-            <optgroup label="Full Game">
-                <option value="any%">any%</option>
-            </optgroup>
-            <optgroup label="ILs">
-                <option value="1a">1a</option>
-                <option value="1b">1b</option>
-                <option value="1c">1c</option>
-                <option value="2a">2a</option>
-                <option value="2b">2b</option>
-                <option value="2c">2c</option>
-                <option value="3a">3a</option>
-                <option value="3b">3b</option>
-                <option value="3c">3c</option>
-                <option value="4a">4a</option>
-                <option value="4b">4b</option>
-                <option value="4c">4c</option>
-                <option value="5a">5a</option>
-                <option value="5b">5b</option>
-                <option value="5c">5c</option>
-                <option value="6a">6a</option>
-                <option value="6b">6b</option>
-                <option value="6c">6c</option>
-                <option value="7a">7a</option>
-                <option value="7b">7b</option>
-                <option value="7c">7c</option>
-                <option value="8a">8a</option>
-                <option value="8b">8b</option>
-                <option value="8c">8c</option>
-                <option value="9">9</option>
-            </optgroup>
-        </select>
-        <div id="checkpoints"></div>
-        <form>
+        <form onsubmit="return false">
             <input type="text" placeholder="Add Player" id="playeradder" autofocus />
-            <button type="button" onclick="addPlayer()">Add</button>
+            <button type="submit" onclick="addPlayer()">Add</button>
         </form>
         <br />
-        <div id="loser"></div>
+        <button type="button" onclick="clearActiveMatch()">Clear Active Match</button>
+        <br />
         <div id="players"></div>
+        <div id="seedTargets"></div>
     </div>
-    <div class="roundcontrols">
-        <button type="button" onclick="triggerPrelims()" style="background-color: red">Prelims (Clears players)</button>
-        <button type="button" onclick="triggerFinals()">Finals</button>
-    </div>
-    <!--<form>
-        <select name="chapter" id="chapter">
-            <option value="" disabled="disabled" selected="selected">Chapter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-        </select>
-        <button type="button" onclick="triggerObjective()">Random Objective!</button>
-        </form>
-        <div id="currentObjective"></div>
-        <button type="button" onclick="clearObjective()">Clear Objective</button>-->
-    <div class="levelcontrols">
-        <div class="levelbuttons">
-            <p>1</p>
-            <p>2</p>
-            <p>3</p>
-            <p>4</p>
-            <p>5</p>
-            <p>6</p>
-            <p>7</p>
-            <p>8</p>
-            <button id="1r" onclick="triggerLevelToggle('1r')">🍓</button>
-            <button id="2r" onclick="triggerLevelToggle('2r')">🍓</button>
-            <button id="3r" onclick="triggerLevelToggle('3r')">🍓</button>
-            <button id="4r" onclick="triggerLevelToggle('4r')">🍓</button>
-            <button id="5r" onclick="triggerLevelToggle('5r')">🍓</button>
-            <button id="6r" onclick="triggerLevelToggle('6r')">🍓</button>
-            <button id="7r" onclick="triggerLevelToggle('7r')">🍓</button>
-            <button id="8r" onclick="triggerLevelToggle('8r')">🍓</button>
-            <button id="1a" onclick="triggerLevelToggle('1a')">a</button>
-            <button id="2a" onclick="triggerLevelToggle('2a')">a</button>
-            <button id="3a" onclick="triggerLevelToggle('3a')">a</button>
-            <button id="4a" onclick="triggerLevelToggle('4a')">a</button>
-            <button id="5a" onclick="triggerLevelToggle('5a')">a</button>
-            <button id="6a" onclick="triggerLevelToggle('6a')">a</button>
-            <button id="7a" onclick="triggerLevelToggle('7a')">a</button>
-            <button id="8a" onclick="triggerLevelToggle('8a')">a</button>
-            <button id="1b" onclick="triggerLevelToggle('1b')">b</button>
-            <button id="2b" onclick="triggerLevelToggle('2b')">b</button>
-            <button id="3b" onclick="triggerLevelToggle('3b')">b</button>
-            <button id="4b" onclick="triggerLevelToggle('4b')">b</button>
-            <button id="5b" onclick="triggerLevelToggle('5b')">b</button>
-            <button id="6b" onclick="triggerLevelToggle('6b')">b</button>
-            <button id="7b" onclick="triggerLevelToggle('7b')">b</button>
-            <button id="8b" onclick="triggerLevelToggle('8b')">b</button>
-            <button id="1c" onclick="triggerLevelToggle('1c')">c</button>
-            <button id="2c" onclick="triggerLevelToggle('2c')">c</button>
-            <button id="3c" onclick="triggerLevelToggle('3c')">c</button>
-            <button id="4c" onclick="triggerLevelToggle('4c')">c</button>
-            <button id="5c" onclick="triggerLevelToggle('5c')">c</button>
-            <button id="6c" onclick="triggerLevelToggle('6c')">c</button>
-            <button id="7c" onclick="triggerLevelToggle('7c')">c</button>
-            <button id="8c" onclick="triggerLevelToggle('8c')">c</button>
-        </div>
-    </div>
+    <div id="bracket"></div>
     <script type="text/javascript" src="messageController.js"></script>
 </body>
 

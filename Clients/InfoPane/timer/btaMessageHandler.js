@@ -5,7 +5,10 @@ const hearts = {
     silver: "/infopane/res/silverheart.gif",
     rainbow: "/infopane/res/rainbowheart.gif",
     cracked: "/infopane/res/fakeheart.gif",
-    lunar: "/infopane/res/blackheart.gif"
+    lunar: "/infopane/res/blackheart.gif",
+    sapphire: "/infopane/res/sapphireheart.gif",
+    ruby: "/infopane/res/rubyheart.gif",
+    diamond: "/infopane/res/diamondheart.gif",
 }
 const divisionTitles = {
     blue: "Blue Division",
@@ -14,7 +17,10 @@ const divisionTitles = {
     silver: "Silver Division",
     rainbow: "Rainbow Division",
     cracked: "Cracked Division",
-    lunar: "Lunar Division"
+    lunar: "Lunar Division",
+    sapphire: "Sapphire Division",
+    ruby: "Ruby Division",
+    diamond: "Diamond Division",
 }
 var state = {}
 var x = new WebSocket('ws://' + location.host);

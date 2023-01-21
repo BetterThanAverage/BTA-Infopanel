@@ -24,28 +24,7 @@ select {
     border-radius: 5px;
 }
 
-#checkpoints .checkpointlist{
-    display: block;
-}
-#checkpoints .checkpointlist p{
-    display: inline-block;
-    background-color: lightblue;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px dotted gray;
-    font-weight: bold;
-}
-#checkpoints .checkpointlist :first-child{
-    background-color: lightyellow
-}
-
-.levelbuttons {
-    display: grid;
-    grid-template-columns: repeat(8, auto);
-    grid-template-rows: repeat(4, auto);
-}
-
-.playercard{
+.playercard {
     display: inline-block;
     background-color: #eee;
     border: 1px solid black;
@@ -54,47 +33,62 @@ select {
     overflow: hidden;
     max-width: 185px;
 }
-.playercard .header{
+
+.playercard .header {
     width: 100%;
     background-color: lightskyblue;
     padding-bottom: 5px;
     font-family: 'Renogare', sans-serif;
 }
-.playercard.loser .header{
-    background-color: lightcoral;
-}
-.playercard .header .title{
+
+.playercard .header .title {
     text-align: center;
     font-size: large;
 }
-.playercard .header .stats{
-    margin-top: 5px;
-    text-align: center;
-}
-.playercard .header .stats p{
-    display: inline-block;
-    background-color: rgba(0, 0, 0, .1);
-    border: 1px dotted black;
-    border-radius: 5px;
-    padding: 3px;
-    margin: 1px;
-}
+
 .playercard .cardtext {
     width: 100%;
     text-align: center;
-    display:block;
+    display: block;
 }
-.playercard .cardtext br{
+
+.playercard .cardtext br {
     display: block;
     margin: 3px 0;
 }
+
 .playercard .actionline {
     display: block;
     width: 100%;
     text-align: center;
 }
+
 .playercard .actionline .actionbutton {
     background-color: lightsalmon;
     margin: .5px;
     border-radius: 10px;
+}
+
+.seedTarget {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 20px 40px 20px 40px;
+    margin: 3px;
+    display: inline-block;
+}
+
+#bracket {
+}
+.bracketColumn {
+    display: inline-block;
+    padding: 2px;
+    margin: 2px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.matchupPair {
+    padding: 2px;
+    margin: 2px;
+    border-radius: 5px;
+    border: 1px solid black;
 }

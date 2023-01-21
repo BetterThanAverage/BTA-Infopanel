@@ -1,0 +1,65 @@
+@font-face {
+    font-family: Renogare;
+    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+}
+
+:root {
+    --ticker-width: 1850px;
+    --ticker-height: 61px;
+}
+
+body {
+    background-color: black;
+    color:white;
+    font-family: Renogare, sans-serif;
+    font-size: 48px;
+}
+
+.ticker {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: calc(50% - (var(--ticker-width) / 2));
+    width: var(--ticker-width);
+    height: var(--ticker-height);
+    overflow:hidden;
+}
+.infoTicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: var(--ticker-height);
+}
+
+.matchup {
+    height: var(--ticker-height);
+    display: inline-flex;
+    flex-direction: column;
+    transform: translateY(-28px);
+    -webkit-transform: translateY(-28px);
+    text-align: center;
+    padding-right: 14.4px;
+    padding-left: 14.4px;
+    border-right: 5px solid white;
+}
+.matchup .name {
+    font-size: 22px;
+}
+.matchup .score {
+    font-size: 20px;
+    color: #989898;
+}
+
+.staticInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: var(--ticker-height);
+    font-size: 26px;
+}
+.staticInfo p {
+    position: absolute;
+    top: 11px;
+    right: 14.4px;
+    width: max-content;
+}
