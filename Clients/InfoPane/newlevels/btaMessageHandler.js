@@ -14,17 +14,28 @@ x.addEventListener('message', function (event) {
     }
 });
 
-const sideImages = {
-    'r': '<img src="/infopane/res/strawberry.png" height="64px"/>',
-    'a': '<img src="/infopane/res/ticket/clear.png"/>',
-    'b': '<img src="/infopane/res/ticket/heartgem1.png"/>',
-    'c': '<img src="/infopane/res/ticket/heartgem2.png"/>',
+function getImage(levelname, sidename){
+    switch(sidename){
+        case 'b':
+            return '<img src="/infopane/res/ticket/heartgem1.png"/>';
+        case 'c':
+            return '<img src="/infopane/res/ticket/heartgem2.png"/>';
+        case 'r':
+            // if(levelname <= 4){
+            //     return '<img src="/infopane/res/ticket/heartgem0.png"/>';
+            // }
+            if(levelname !== '6'){
+                return '<img src="/infopane/res/strawberry.png" height="64px"/>';
+            }
+        default:
+            return '<img src="/infopane/res/ticket/clear.png"/>';
+    }
 }
 
 function updateState(newState) {
     Object.entries(newState.levels).forEach(([levelname, sides]) => {
         Object.entries(sides).forEach(([sidename, value]) => {
-            if(levelname==='6' && sidename==='r'){
+            if(sidename==='a'){
             }
             else if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
                 let el = document.getElementById(levelname + sidename);
@@ -34,11 +45,12 @@ function updateState(newState) {
                         el.innerText = "•";
                     }
                     else {
-                        el.innerHTML = sideImages[sidename];
+                        el.innerHTML = getImage(levelname, sidename);
                     }
                 }
             }
         })
     })
     state = newState;
+    document.getElementById('cardCover').className = state.levelTickerOpen ? 'card' : 'card-closed'
 }

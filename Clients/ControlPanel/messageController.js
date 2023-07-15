@@ -19,7 +19,10 @@ function changeLevel(){
 }
 
 function updateLevel(level) {
-    if (/any%|9|[1-8][a-c]/.test(level)){
+    if (/any%|9|[1-8][a-cr]/.test(level)){
+        if(/r$/.test(level)){
+            level = level.substring(0,1)+'a';
+        }
         x.send(JSON.stringify({ type: "changeLevel", content: level }))
     }
 }
@@ -341,4 +344,8 @@ function sendChangeTimer(){
         minutes.value = "";
         seconds.value = "";
     }
+}
+
+function toggleLevelTicker(){
+    x.send(JSON.stringify({type: "toggleLevelTicker"}));
 }

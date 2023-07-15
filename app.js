@@ -31,7 +31,8 @@ const messageTypes = {
     changeLevel: "changeLevel",
     startTimer: "startTimer",
     pauseTimer: "pauseTimer",
-    changeTimer: "changeTimer"
+    changeTimer: "changeTimer",
+    toggleLevelTicker: "toggleLevelTicker"
 }
 
 const levels = {
@@ -93,6 +94,7 @@ var state = {
     objective: null,
     points: {},
     redemptions: {},
+    levelTickerOpen: true,
     levels: {
         '1': {
             'r': true,
@@ -203,6 +205,7 @@ wsServer.on('connection', socket => {
                 state.loser = state.players.indexOf('PRELIMS');
                 state.points = {}
                 state.redeems = {}
+                state.levelTickerOpen = false;
                 state.levels = {
                     '1': {
                         'r': true,
@@ -253,14 +256,8 @@ wsServer.on('connection', socket => {
                         'c': true
                     },
                 }
-                let multiplier = 15;
-                if(state.currentHeart === 'yellow' || state.currentHeart === 'cracked'){
-                    multiplier = 13
-                }
-                else if (state.currentHeart === 'lunar'){
-                    multiplier = 12
-                }
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * multiplier * 60;
+                let minutesPerPlayer = 15;
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * minutesPerPlayer * 60;
                 state.timer.isRunning = false;
                 state.level = "any%"
             }
@@ -268,7 +265,7 @@ wsServer.on('connection', socket => {
                 state.players.push('FINALS')
                 state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
                 state.loser = state.players.indexOf('FINALS');
-                state.timer.duration = 15 * 60;
+                state.timer.duration = 25 * 60;
                 state.timer.isRunning = false;
             }
             else if (data.type === messageTypes.triggerObjective) {
@@ -314,6 +311,7 @@ wsServer.on('connection', socket => {
                         state.levels[chapter][side] = !state.levels[chapter][side];
                     }
                 }
+                state.levelTickerOpen = true;
             }
             else if (data.type === messageTypes.changeLevel) {
                 let l = data.content;
@@ -348,6 +346,9 @@ wsServer.on('connection', socket => {
                     }
                     catch (err) { console.error(err) }
                 }
+            } 
+            else if (data.type === messageTypes.toggleLevelTicker){
+                state.levelTickerOpen = !state.levelTickerOpen;
             }
             broadcast(state);
         })
