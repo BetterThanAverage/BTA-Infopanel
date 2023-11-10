@@ -14,16 +14,19 @@ x.addEventListener('message', function (event) {
     }
 });
 
-function changeLevel(){
+function changeLevel() {
     updateLevel(document.getElementById("currentLevel").value);
 }
 
 function updateLevel(level) {
-    if (/any%|9|[1-8][a-cr]/.test(level)){
-        if(/r$/.test(level)){
-            level = level.substring(0,1)+'a';
+    if (/any%|9|[1-8][a-cr]/.test(level)) {
+        if (/r$/.test(level)) {
+            level = level.substring(0, 1) + 'a';
         }
-        x.send(JSON.stringify({ type: "changeLevel", content: level }))
+        x.send(JSON.stringify({
+            type: "changeLevel",
+            content: level
+        }))
     }
 }
 
@@ -38,6 +41,7 @@ function updateState(newState) {
         let idx = 0;
         newState.players.forEach(player => {
             let flagLoser = idx === newState.loser;
+            let flagChamp = newState.info.champions.includes(player);
             let playercard = document.createElement('div');
             playercard.className = "playercard";
             if (flagLoser) {
@@ -71,23 +75,23 @@ function updateState(newState) {
                 berryTally.id = `tally_${player}`;
                 if (newState.points && newState.points[player]) {
                     berryTally.innerText = `🍓x${newState.points[player]}`;
-                }
-                else {
+                } else {
                     berryTally.innerText = "🍓x0";
                 }
                 playerstats.appendChild(berryTally)
                 //#endregion berries
 
                 //#region redeems
-                let redeemTally = document.createElement('p')
-                redeemTally.id = `tally_${player}`;
-                if (newState.points && newState.redeems[player]) {
-                    redeemTally.innerText = `🐦x${newState.redeems[player]}`;
+                if (!flagChamp) {
+                    let redeemTally = document.createElement('p')
+                    redeemTally.id = `tally_${player}`;
+                    if (newState.points && newState.redeems[player]) {
+                        redeemTally.innerText = `🐦x${newState.redeems[player]}`;
+                    } else {
+                        redeemTally.innerText = "🐦x0";
+                    }
+                    playerstats.appendChild(redeemTally)
                 }
-                else {
-                    redeemTally.innerText = "🐦x0";
-                }
-                playerstats.appendChild(redeemTally)
                 //#endregion redeems
 
                 //#region PB
@@ -111,9 +115,9 @@ function updateState(newState) {
             //#region text
             let cardtext = document.createElement('div');
             cardtext.className = "cardtext";
-            
+
             //#region funfact
-            if(newState.info?.players[player]?.fun){
+            if (newState.info?.players[player]?.fun) {
                 let fun = document.createElement('p')
                 fun.id = `fun_${player}`
                 fun.innerText = newState.info.players[player].fun
@@ -143,20 +147,22 @@ function updateState(newState) {
                 plusButton.value = player;
                 plusButton.onclick = () => addPoint(player);
                 actionline1.appendChild(plusButton);
-                let minusRdmButton = document.createElement('button');
-                minusRdmButton.className = "actionbutton";
-                minusRdmButton.type = 'button';
-                minusRdmButton.innerText = '-🐦';
-                minusRdmButton.value = player;
-                minusRdmButton.onclick = () => removeRedeem(player);
-                actionline1.appendChild(minusRdmButton);
-                let plusRdmButton = document.createElement('button');
-                plusRdmButton.className = "actionbutton"
-                plusRdmButton.type = 'button';
-                plusRdmButton.innerText = '+🐦';
-                plusRdmButton.value = player;
-                plusRdmButton.onclick = () => addRedeem(player);
-                actionline1.appendChild(plusRdmButton);
+                if (!flagChamp) {
+                    let minusRdmButton = document.createElement('button');
+                    minusRdmButton.className = "actionbutton";
+                    minusRdmButton.type = 'button';
+                    minusRdmButton.innerText = '-🐦';
+                    minusRdmButton.value = player;
+                    minusRdmButton.onclick = () => removeRedeem(player);
+                    actionline1.appendChild(minusRdmButton);
+                    let plusRdmButton = document.createElement('button');
+                    plusRdmButton.className = "actionbutton"
+                    plusRdmButton.type = 'button';
+                    plusRdmButton.innerText = '+🐦';
+                    plusRdmButton.value = player;
+                    plusRdmButton.onclick = () => addRedeem(player);
+                    actionline1.appendChild(plusRdmButton);
+                }
 
                 playercard.appendChild(actionline1);
             }
@@ -174,8 +180,7 @@ function updateState(newState) {
                 loseButton.value = idx;
                 loseButton.onclick = () => markLoss(loseButton.value);
                 actionline2.appendChild(loseButton);
-            }
-            else {
+            } else {
                 let winButton = document.createElement('button');
                 winButton.className = 'actionbutton';
                 winButton.type = 'button';
@@ -196,8 +201,7 @@ function updateState(newState) {
             //#endregion 2nd action buttons
             if (flagLoser) {
                 loserEl = playercard
-            }
-            else {
+            } else {
                 nodes.push(playercard)
             }
             idx++;
@@ -213,19 +217,19 @@ function updateState(newState) {
 
         let cps = document.getElementById("checkpoints");
         cps.innerHTML = "";
-        if(/^any%|[1-8][a-c]|9$/.test(newState.level)){
+        if (/^any%|[1-8][a-c]|9$/.test(newState.level)) {
             document.getElementById("currentLevel").value = newState.level;
             let levelinfo = newState.info?.levels[newState.level];
-            if(levelinfo?.fun){
+            if (levelinfo?.fun) {
                 let fun = document.createElement('p');
                 fun.className = "facts"
                 fun.innerText = levelinfo.fun;
                 cps.appendChild(fun);
             }
-            if(levelinfo?.cps){
+            if (levelinfo?.cps) {
                 let checks = document.createElement('div');
                 checks.className = "checkpointlist"
-                for(cp of levelinfo.cps){
+                for (cp of levelinfo.cps) {
                     let cpp = document.createElement('p');
                     cpp.innerText = cp;
                     checks.appendChild(cpp);
@@ -255,8 +259,7 @@ function updateState(newState) {
                 if (el) {
                     if (value) {
                         el.style.backgroundColor = "lightgreen";
-                    }
-                    else {
+                    } else {
                         el.style.backgroundColor = "coral";
                     }
                 }
@@ -267,23 +270,35 @@ function updateState(newState) {
 }
 
 function sendUpdateHeart(heart) {
-    x.send(JSON.stringify({ type: "updateHeart", content: heart }))
+    x.send(JSON.stringify({
+        type: "updateHeart",
+        content: heart
+    }))
 }
 
 function addPlayer() {
     let adder = document.getElementById('playeradder');
     if (adder.value) {
-        x.send(JSON.stringify({ type: "addPlayer", content: adder.value }))
+        x.send(JSON.stringify({
+            type: "addPlayer",
+            content: adder.value
+        }))
         adder.value = '';
     }
 }
 
 function removePlayer(index) {
-    x.send(JSON.stringify({ type: "removePlayer", content: index }));
+    x.send(JSON.stringify({
+        type: "removePlayer",
+        content: index
+    }));
 }
 
 function markLoss(index) {
-    x.send(JSON.stringify({ type: "losePlayer", content: index }));
+    x.send(JSON.stringify({
+        type: "losePlayer",
+        content: index
+    }));
     if (index === -1) {
         let loser = document.getElementById('loser')
         loser.innerHTML = '';
@@ -291,61 +306,100 @@ function markLoss(index) {
 }
 
 function triggerPrelims() {
-    x.send(JSON.stringify({ type: "triggerPrelims" }));
+    x.send(JSON.stringify({
+        type: "triggerPrelims"
+    }));
 }
+
 function triggerFinals() {
-    x.send(JSON.stringify({ type: "triggerFinals" }));
+    x.send(JSON.stringify({
+        type: "triggerFinals"
+    }));
     updateLevel("9");
 }
 
 function triggerObjective() {
     let chSel = document.getElementById('chapter');
     if (chSel.value) {
-        x.send(JSON.stringify({ type: "triggerObjective", content: chSel.value }))
+        x.send(JSON.stringify({
+            type: "triggerObjective",
+            content: chSel.value
+        }))
     }
 }
+
 function clearObjective() {
-    x.send(JSON.stringify({ type: "clearObjective" }));
+    x.send(JSON.stringify({
+        type: "clearObjective"
+    }));
 }
 
 function addPoint(player) {
-    x.send(JSON.stringify({ type: "addPoint", content: player }))
+    x.send(JSON.stringify({
+        type: "addPoint",
+        content: player
+    }))
 }
+
 function removePoint(player) {
-    x.send(JSON.stringify({ type: "removePoint", content: player }))
+    x.send(JSON.stringify({
+        type: "removePoint",
+        content: player
+    }))
 }
+
 function addRedeem(player) {
-    x.send(JSON.stringify({ type: "addRedeem", content: player }))
+    x.send(JSON.stringify({
+        type: "addRedeem",
+        content: player
+    }))
 }
+
 function removeRedeem(player) {
-    x.send(JSON.stringify({ type: "removeRedeem", content: player }))
+    x.send(JSON.stringify({
+        type: "removeRedeem",
+        content: player
+    }))
 }
 
 function triggerLevelToggle(id) {
-    x.send(JSON.stringify({ type: "toggleLevel", content: id }))
+    x.send(JSON.stringify({
+        type: "toggleLevel",
+        content: id
+    }))
     updateLevel(id);
 }
 
 function sendStartTimer() {
-    x.send(JSON.stringify({ type: "startTimer" }));
-}
-function sendPauseTimer() {
-    x.send(JSON.stringify({ type: "pauseTimer" }));
+    x.send(JSON.stringify({
+        type: "startTimer"
+    }));
 }
 
-function sendChangeTimer(){
+function sendPauseTimer() {
+    x.send(JSON.stringify({
+        type: "pauseTimer"
+    }));
+}
+
+function sendChangeTimer() {
     let hours = document.getElementById("timerEntryHrs");
     let minutes = document.getElementById("timerEntryMns");
     let seconds = document.getElementById("timerEntryScs");
-    if(!state.timer.isRunning && (hours.value || minutes.value || seconds.value)){
+    if (!state.timer.isRunning && (hours.value || minutes.value || seconds.value)) {
         let time = `${hours.value || 0}:${minutes.value || 0}:${seconds.value || 0}`;
-        x.send(JSON.stringify({type: "changeTimer", content: time}));
+        x.send(JSON.stringify({
+            type: "changeTimer",
+            content: time
+        }));
         hours.value = "";
         minutes.value = "";
         seconds.value = "";
     }
 }
 
-function toggleLevelTicker(){
-    x.send(JSON.stringify({type: "toggleLevelTicker"}));
+function toggleLevelTicker() {
+    x.send(JSON.stringify({
+        type: "toggleLevelTicker"
+    }));
 }

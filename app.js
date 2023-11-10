@@ -154,6 +154,20 @@ var state = {
     info: info
 };
 
+function roundLengthPerPlayer() { // In Minutes
+    switch(state.currentHeart) {
+        case 'red':
+        case 'yellow':
+            return 13;
+        case 'cracked':
+            return 11;
+        case 'lunar':
+            return 10;
+        default:
+            return 15;
+    }
+}
+
 var clients = [];
 
 wsServer.on('connection', socket => {
@@ -178,7 +192,7 @@ wsServer.on('connection', socket => {
                     state.loser = state.players.indexOf(loser);
                 }
                 if (!state.timer.isRunning) {
-                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
+                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * roundLengthPerPlayer() * 60
                 }
             }
             else if (data.type === messageTypes.removePlayer) {
@@ -190,7 +204,7 @@ wsServer.on('connection', socket => {
                 if (state.loser > data.content)
                     state.loser -= 1;
                 if (!state.timer.isRunning) {
-                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * 15 * 60
+                    state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * roundLengthPerPlayer() * 60
                 }
             }
             else if (data.type === messageTypes.losePlayer) {
@@ -256,8 +270,7 @@ wsServer.on('connection', socket => {
                         'c': true
                     },
                 }
-                let minutesPerPlayer = 15;
-                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * minutesPerPlayer * 60;
+                state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * roundLengthPerPlayer() * 60;
                 state.timer.isRunning = false;
                 state.level = "any%"
             }
@@ -265,7 +278,7 @@ wsServer.on('connection', socket => {
                 state.players.push('FINALS')
                 state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
                 state.loser = state.players.indexOf('FINALS');
-                state.timer.duration = 25 * 60;
+                state.timer.duration = 15 * 60;
                 state.timer.isRunning = false;
             }
             else if (data.type === messageTypes.triggerObjective) {

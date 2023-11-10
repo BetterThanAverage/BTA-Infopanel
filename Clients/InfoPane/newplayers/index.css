@@ -76,6 +76,13 @@ body {
     border-top-width: 29px;
 }
 
+.champ .box{
+    background-color: goldenrod;
+}
+.champ .box::after{
+    border-top-color: goldenrod;
+}
+
 .loser p{
     margin-left: 30px;
 }

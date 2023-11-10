@@ -8,44 +8,39 @@ x.addEventListener('message', function (event) {
     let message = JSON.parse(event.data);
     if (message.type === 'state') {
         updateState(message);
-    }
-    else if (message.type === 'system') {
+    } else if (message.type === 'system') {
         console.log("Recieved System Event: ", message.content)
     }
 });
 
-function getImage(levelname, sidename){
-    switch(sidename){
+function getImage(levelname, sidename) {
+    switch (sidename) {
         case 'b':
             return '<img src="/infopane/res/ticket/heartgem1.png"/>';
         case 'c':
             return '<img src="/infopane/res/ticket/heartgem2.png"/>';
         case 'r':
-            // if(levelname <= 4){
-            //     return '<img src="/infopane/res/ticket/heartgem0.png"/>';
-            // }
-            if(levelname !== '6'){
+            if (levelname !== '6') {
                 return '<img src="/infopane/res/strawberry.png" height="64px"/>';
             }
-        default:
-            return '<img src="/infopane/res/ticket/clear.png"/>';
+            default:
+                return '<img src="/infopane/res/ticket/clear.png"/>';
     }
 }
 
 function updateState(newState) {
     Object.entries(newState.levels).forEach(([levelname, sides]) => {
         Object.entries(sides).forEach(([sidename, value]) => {
-            if(sidename==='a'){
-            }
-            else if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
+            if ((!state.levels) || (!state.levels[levelname]) || (!state.levels[levelname][sidename]) || value !== state.levels[levelname][sidename]) {
                 let el = document.getElementById(levelname + sidename);
-                el.innerHTML = ""
                 if (el) {
-                    if (value) {
-                        el.innerText = "•";
-                    }
-                    else {
-                        el.innerHTML = getImage(levelname, sidename);
+                    el.innerHTML = ""
+                    if (el) {
+                        if (value) {
+                            el.innerText = "•";
+                        } else {
+                            el.innerHTML = getImage(levelname, sidename);
+                        }
                     }
                 }
             }
