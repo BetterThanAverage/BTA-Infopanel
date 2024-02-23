@@ -90,6 +90,8 @@
         <button type="button" onclick="clearObjective()">Clear Objective</button>-->
     <div class="levelcontrols">
         <button id="toggleTicker" onclick="toggleLevelTicker()">Open/Close Ticker</button>
+        <button onclick="clearAllLevels()">Clear Level Selections</button>
+        <button onclick="triggerRandomLevel()">Trigger Random Level Selection</button>
         <div class="levelbuttons">
             <p>1</p>
             <p>2</p>
@@ -99,6 +101,14 @@
             <p>6</p>
             <p>7</p>
             <p>8</p>
+            <button id="1r" onclick="triggerLevelToggle('1r')">bingo</button>
+            <button id="2r" onclick="triggerLevelToggle('2r')">bingo</button>
+            <button id="3r" onclick="triggerLevelToggle('3r')">bingo</button>
+            <button id="4r" onclick="triggerLevelToggle('4r')">bingo</button>
+            <button id="5r" onclick="triggerLevelToggle('5r')">bingo</button>
+            <button id="6r" onclick="triggerLevelToggle('6r')">bingo</button>
+            <button id="7r" onclick="triggerLevelToggle('7r')">bingo</button>
+            <button id="8r" onclick="triggerLevelToggle('8r')">bingo</button>
             <button id="1a" onclick="triggerLevelToggle('1a')">a</button>
             <button id="2a" onclick="triggerLevelToggle('2a')">a</button>
             <button id="3a" onclick="triggerLevelToggle('3a')">a</button>
@@ -115,14 +125,6 @@
             <button id="6b" onclick="triggerLevelToggle('6b')">b</button>
             <button id="7b" onclick="triggerLevelToggle('7b')">b</button>
             <button id="8b" onclick="triggerLevelToggle('8b')">b</button>
-            <button id="1c" onclick="triggerLevelToggle('1c')">c</button>
-            <button id="2c" onclick="triggerLevelToggle('2c')">c</button>
-            <button id="3c" onclick="triggerLevelToggle('3c')">c</button>
-            <button id="4c" onclick="triggerLevelToggle('4c')">c</button>
-            <button id="5c" onclick="triggerLevelToggle('5c')">c</button>
-            <button id="6c" onclick="triggerLevelToggle('6c')">c</button>
-            <button id="7c" onclick="triggerLevelToggle('7c')">c</button>
-            <button id="8c" onclick="triggerLevelToggle('8c')">c</button>
         </div>
     </div>
     <script type="text/javascript" src="messageController.js"></script>

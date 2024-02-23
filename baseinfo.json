@@ -1,63 +1,17 @@
 {
     "players": {},
     "champions": [
-        "Vapo",
-        "Dragon5112",
-        "Epyc",
-        "ad",
-        "bulletinfi",
-        "Cookie",
-        "mushroom",
-        "jimmy"
     ],
     "divisions": {
         "blue": [
-            "Theman",
-            "auri!",
-            "ArrowBounce",
-            "Thejego",
-            "Amity"
         ],
         "red": [
-            "ALuckyGrenade",
-            "Ninja",
-            "Nessi <3",
-            "ad",
-            "mushroom",
-            "Epyc",
-            "Tomycarmo3",
-            "FreddieStarWars",
-            "Windette",
-            "ninjagamerleo"
         ],
         "yellow": [
-            "Splod",
-            "idontexist",
-            "yellow",
-            "Dragon5112",
-            "bulletinfi",
-            "julie",
-            "SnootSnoot",
-            "creep."
         ],
         "cracked": [
-            "Sevadra",
-            "Plixona",
-            "Locke",
-            "plex",
-            "Cookie",
-            "crab"
         ],
         "lunar": [
-            "Tiyo",
-            "yujene",
-            "Vapo",
-            "Goosetav",
-            "jimmy",
-            "Salt",
-            "Mei",
-            "Larrito",
-            "Clyydde"
         ]
     },
     "levels": {

@@ -1,62 +1,76 @@
 @font-face {
-    font-family: Renogare;
-    src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
+  font-family: Renogare;
+  src: url("/infopane/res/Renogare-Regular.otf") format("opentype");
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-body{
-    overflow-x: hidden;
-    font-family: Renogare, sans-serif;
-    font-size: 32px;
-    color: #5e5353;
+body {
+  overflow-x: hidden;
+  font-family: Renogare, sans-serif;
+  font-size: 32px;
+  color: #5e5353;
 }
 
-.ticketbg{
-    position: absolute;
-    top: 0%;
-    right: -100px;
+.ticketbg {
+  position: absolute;
+  top: 0%;
+  right: -100px;
 }
 
 #cardCover {
-    position: absolute;
-    top: 0%;
-    transition: right .5s ease-in;
+  position: absolute;
+  top: 0%;
+  transition: right 0.5s ease-in;
 }
-.card{
-    right: -740px;
+.card {
+  right: -740px;
 }
-.card-closed{
+.card-closed {
+  right: -75px;
+}
+
+.infocontainer {
+  width: 640px;
+  height: 230px;
+  overflow: hidden;
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  display: grid;
+  grid-template-columns: repeat(8, 12.5%);
+  grid-template-rows: 30% repeat(3, 20%) 10%;
+  align-items: center;
+}
+.infocontainer p {
+  text-align: center;
+}
+.infocontainer .indicator {
+  text-align: center;
+  color: #9e8d8d;
+}
+
+@keyframes cardslide {
+  from {
     right: -75px;
+  }
+  to {
+    right: -740px;
+  }
 }
 
-.infocontainer{
-    width: 640px;
-    height: 230px;
-    overflow: hidden;
-    position: absolute;
-    top: 35px;
-    right: 35px;
-    display: grid;
-    grid-template-columns: repeat(8, 12.5%);
-    grid-template-rows: 30% repeat(3, 20%) 10%;
-    align-items: center;
-}
-.infocontainer p{
-    text-align: center;
-}
-.infocontainer .indicator{
-    text-align: center;
-    color: #9e8d8d;
+.circled {
+  border: 3px solid black;
+  border-radius: 500px;
 }
 
-@keyframes cardslide{
-    from{
-        right: -75px;
-    }
-    to{
-        right: -740px;
-    }
+.circled.selected{
+  background: black;
+}
+
+.ticketicon{
+    height: 64px;
+    width: 64px;
 }

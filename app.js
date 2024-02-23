@@ -1,11 +1,11 @@
 const express = require('express');
 const ws = require('ws');
 const fs = require('fs');
+const { randomInt } = require('crypto');
 const Mutex = require('async-mutex').Mutex;
 const mutex = new Mutex();
 
 const info = JSON.parse(fs.readFileSync("baseinfo.json"));
-//const divisions = JSON.parse(fs.readFileSync("initial-divisions.json"));
 const objectives = JSON.parse(fs.readFileSync("objectives.json"))
 const port = 8080;
 
@@ -32,7 +32,10 @@ const messageTypes = {
     startTimer: "startTimer",
     pauseTimer: "pauseTimer",
     changeTimer: "changeTimer",
-    toggleLevelTicker: "toggleLevelTicker"
+    toggleLevelTicker: "toggleLevelTicker",
+    selectRandomLevel: "selectRandomLevel",
+    randomLevelSelected: "randomLevelSelected",
+    clearAllLevels: "clearAllLevels",
 }
 
 const levels = {
@@ -151,18 +154,22 @@ var state = {
         duration: 0,
         endTime: null
     },
-    info: info
+    info: info,
+    previousRandomLevel: null
 };
 
 function roundLengthPerPlayer() { // In Minutes
     switch(state.currentHeart) {
+        case 'blue':
+            return 14;
         case 'red':
+            return 12;
         case 'yellow':
-            return 13;
-        case 'cracked':
             return 11;
-        case 'lunar':
+        case 'cracked':
             return 10;
+        case 'lunar':
+            return 8;
         default:
             return 15;
     }
@@ -176,6 +183,7 @@ wsServer.on('connection', socket => {
     clients.push(socket);
     socket.on('message', (event) => {
         mutex.runExclusive(() => {
+            let willBroadcastState = true;
             console.debug("Message Recieved:", event.toString());
             let data = JSON.parse(event.toString());
             if (data.type === messageTypes.updateHeart) {
@@ -273,6 +281,7 @@ wsServer.on('connection', socket => {
                 state.timer.duration = state.players.filter(x => x !== "PRELIMS" && x !== "FINALS").length * roundLengthPerPlayer() * 60;
                 state.timer.isRunning = false;
                 state.level = "any%"
+                state.previousRandomLevel = null;
             }
             else if (data.type === messageTypes.triggerFinals) {
                 state.players.push('FINALS')
@@ -363,7 +372,76 @@ wsServer.on('connection', socket => {
             else if (data.type === messageTypes.toggleLevelTicker){
                 state.levelTickerOpen = !state.levelTickerOpen;
             }
-            broadcast(state);
+            else if (data.type === messageTypes.selectRandomLevel){
+                willBroadcastState = false;
+                broadcast({type: "selectLevel", content: randomInt(24, 145)})
+            }
+            else if (data.type === messageTypes.randomLevelSelected){
+                let l = data.level;
+                if (typeof (l) === 'string' && l.length === 2) {
+                    let chapter = l[0];
+                    let side = l[1];
+                    if (state.levels[chapter] !== undefined && state.levels[chapter][side] !== undefined) {
+                        state.levels[chapter][side] = false;
+                        state.previousRandomLevel = l;
+                    }
+                }
+            }
+            else if (data.type === messageTypes.clearAllLevels){
+                state.levels = {
+                    '1': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '2': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '3': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '4': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '5': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '6': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '7': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                    '8': {
+                        'r': true,
+                        'a': true,
+                        'b': true,
+                        'c': true
+                    },
+                }
+            }
+            if(willBroadcastState){
+                broadcast(state);
+            }
         })
     });
 });

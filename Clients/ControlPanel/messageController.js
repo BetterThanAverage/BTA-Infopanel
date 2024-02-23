@@ -403,3 +403,11 @@ function toggleLevelTicker() {
         type: "toggleLevelTicker"
     }));
 }
+
+function triggerRandomLevel(){
+    x.send(JSON.stringify({type: "selectRandomLevel"}));
+}
+
+function clearAllLevels(){
+    x.send(JSON.stringify({type: "clearAllLevels"}));
+}
