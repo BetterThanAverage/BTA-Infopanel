@@ -1,17 +1,63 @@
 {
     "players": {},
     "champions": [
+            "arrowbounce",
+            "ad",
+            "mushroom",
+            "Epyc",
+            "Random Name",
+            "Ninja",
+            "Cookie",
+            "Tomycarmo3",
+            "Sevadra",
+            "Dragon5112",
+            "creep.",
+            "Tiyo"
     ],
     "divisions": {
         "blue": [
+            "apollo42",
+            "arrowbounce",
+            "auri",
+            "Hazel",
+            "ID IchAlsolch",
+            "maybeGVST",
+            "Nessi"
         ],
         "red": [
+            "ad",
+            "Epyc",
+            "Freddie",
+            "Marlin",
+            "mushroom",
+            "Tnt_go_bang"
         ],
         "yellow": [
+            "Christent",
+            "Gizmo",
+            "julie",
+            "morraconda",
+            "Ninja",
+            "PocketWraith",
+            "Random Name",
+            "rhelmot",
+            "Splod"
         ],
         "cracked": [
+            "Cookie",
+            "Czikumba",
+            "Malakbel",
+            "Plixona",
+            "Poncle",
+            "Tomycarmo3"
         ],
         "lunar": [
+            "creep.",
+            "Dragon5112",
+            "Raki",
+            "Salt",
+            "Sevadra",
+            "Tiyo"
         ]
     },
     "levels": {
