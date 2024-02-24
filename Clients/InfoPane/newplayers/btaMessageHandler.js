@@ -41,7 +41,7 @@ function updateState(newState) {
             p.innerText = p.innerText.replace(/ /g, '\u00a0') //NBSP
             div.appendChild(p);
             let isChamp = newState.info.champions.includes(player);
-            if (!isSpecialPlayer(player)) {
+            if (!isSpecialPlayer(player) && !isChamp) {
                 let infoLine = document.createElement('p');
                 infoLine.className = "playerinfoline";
                 infoLine.innerHTML = `<img class="berry icon" src="/infopane/res/strawberry.png"/>\u2060<span class="times">\u00D7</span>${newState.points[player]|0}`+(isChamp ? '' : `<img class="berry icon" src="/infopane/res/cs_assistmode.png"/>\u2060<span class="times">\u00D7</span>${newState.redeems[player]|0}`);
@@ -52,6 +52,7 @@ function updateState(newState) {
             div.appendChild(bg);
             if (isChamp) {
                 div.classList.add('champ');
+                div.classList.add('special');
             }
             if (idx !== newState.loser) {
                 nodes.push(div)

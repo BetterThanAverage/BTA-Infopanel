@@ -71,18 +71,18 @@ function updateState(newState) {
                 playerstats.className = "stats";
 
                 //#region berries
-                let berryTally = document.createElement('p')
-                berryTally.id = `tally_${player}`;
-                if (newState.points && newState.points[player]) {
-                    berryTally.innerText = `🍓x${newState.points[player]}`;
-                } else {
-                    berryTally.innerText = "🍓x0";
-                }
-                playerstats.appendChild(berryTally)
+                if (!flagChamp) {
+                    let berryTally = document.createElement('p')
+                    berryTally.id = `tally_${player}`;
+                    if (newState.points && newState.points[player]) {
+                        berryTally.innerText = `🍓x${newState.points[player]}`;
+                    } else {
+                        berryTally.innerText = "🍓x0";
+                    }
+                    playerstats.appendChild(berryTally)
                 //#endregion berries
 
                 //#region redeems
-                if (!flagChamp) {
                     let redeemTally = document.createElement('p')
                     redeemTally.id = `tally_${player}`;
                     if (newState.points && newState.redeems[player]) {
