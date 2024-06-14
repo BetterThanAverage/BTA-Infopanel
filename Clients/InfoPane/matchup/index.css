@@ -144,7 +144,7 @@ body {
 #heart {
     width: var(--heart-width);
     position: absolute;
-    top: 3.5px;
+    top: 23.5px;
     left: calc(50% - (var(--heart-width) / 2));
     animation: rotate 25s linear 0s infinite forwards;
 }

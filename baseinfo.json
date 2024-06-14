@@ -1,163 +1,30 @@
 {
-    "players": {
-        "rain": {},
-        "creepcrafting56": {},
-        "Mr.Malek": {},
-        "Epyc": {},
-        "ad": {},
-        "Thaniel": {},
-        "Dukenursefish": {},
-        "Dr. Køffee": {},
-        "Kaitlyn/Ethylia": {},
-        "Darksaplep": {},
-        "Mushroom": {},
-        "PaulvonhooverIII": {},
-        "Tuna": {},
-        "DearThrowaway": {},
-        "Nessi <3": {},
-        "BurgerSlayin": {},
-        "Nene": {
-            "fun": "Came from blue all the way to yellow from each and every BTA"
-        },
-        "thunder": {
-            "fun": "Has master spreadsheet on fastest berries to grab, could be prepared for special rules"
-        },
-        "Jerms": {
-            "fun": "Sub hr arb\nPlenty of A and B side clears, c sides could spell trouble",
-            "any%": "32"
-        },
-        "Sevadra": {
-            "fun": "Almost sub arb (1:01)\nbny% experience and tourney\n2:26 100%\nGRINDING for BTA big time, all around strong times and experience",
-            "any%": "32"
-        },
-        "Chandler": {
-            "fun": "????"
-        },
-        "Brambon": {
-            "fun": "Another person who's grinded from blue division to yellow (i think)"
-        },
-        "Plixona": {
-            "fun": "Dont have much"
-        },
-        "SirNewt": {
-            "fun": "Has been grinding big time in any% the last few months but may need to put up a fight in b and c sides against the competition",
-            "any%": "Sub 30"
-        },
-        "Wibs": {
-            "fun": "been on an any% grind\nPrologue extraordinaire, played it 1000x in a row",
-            "any%": "30:13"
-        },
-        "maridon": {
-            "fun": "Is maridon participating? Unsure (yes lol)"
-        },
-        "luffy133": {
-            "fun": "Almost all ILs submitted besides collectibles"
-        },
-        "Goosetav": {
-            "fun": "Doesn't have much on SRC besides sub 30",
-            "any%": "Sub 30"
-        },
-        "IckleChris": {
-            "fun": "24th bny% (37:53)\nGlyph pack WR holder for all chapters AND all A-sides",
-            "any%": "Sub 30"
-        },
-        "kwan": {
-            "fun": "Sub 2 100%\nArb (52:57), all hearts, bny%, hits most of the major categories",
-            "any%": "Sub 30"
-        },
-        "Plex": {
-            "fun": "Sub hr arb\n2:18 ridge is INSANE",
-            "any%": "Sub 30"
-        },
-        "UnderTempo": {
-            "fun": "19th bny% (35:51)\nSub hr arb\nBIG Bingy enjoyer"
-        },
-        "OwenPG": {
-            "fun": "21st arb (51:38)\nBeen grinding arb a lot for the past few weeks, also an avid bingo player",
-            "any%": "Sub 30"
-        },
-        "Katriii": {
-            "fun": "",
-            "any%": "28:43.324 (59th)",
-            "1a": "0:54.927 (8th)",
-            "1b": "1:29.403 (16h)",
-            "2a": "1:35.863 (4th)",
-            "3a": "4:10.359 (55th)",
-            "4a": "2:30.960 (53rd)",
-            "5b": "2:20.573 (54th)",
-            "6a": "5:39.898 (22nd)",
-            "7a": "8:19.800 (51st)"
-        },
-        "JimmyClyde": {
-            "fun": "Has almost EVERY SINGLE IL SUBMITTED besides collectibles\nCould spell trouble with arb"
-        },
-        "Poncle": {
-            "fun": "Sub hr arb\nI dont really have any more notes on them",
-            "any%": "Sub 30"
-        },
-        "Thalant": {
-            "fun": "9th bny% (34:32)\n5:28 all C-sides\nCrazy overall celeste expertise, lacks a bit in arb, traveled from Blue div to Lunar over the entire BTA lifetime",
-            "any%": "28"
-        },
-        "Tiyo": {
-            "fun": "bny% WR\n2nd all B-sides\n3rd all hearts\n5th all c-sides (4:57)\nB side domination, amazing at A sides but could be trouble with the competition",
-            "8a": "2nd place"
-        },
-        "Isaac": {
-            "fun": "All cassettes WR (32:44)\nPrologue WR\n5th in arb\nGrinding any% for a few months now, absolute gamer",
-            "any%": "WR"
-        },
-        "Vapo": {
-            "fun": "10th 100% (1:51)\n20th arb (51)\nSafe strats always, but SUUUUPER consistent at every single IL",
-            "any%": "28"
-        },
-        "Goombs": {
-            "fun": "6th bny%\n3rd 100% (1:43)\n2nd all cassettes (33:40)\nGrinding 100% then shifted focus to any% for a bit",
-            "any%": "7th place",
-            "8a": "3rd place"
-        },
-        "RakiTTV": {
-            "fun": "12th bny% (34:45)\nHuge any% gamer",
-            "any%": "10th Place (26:58)"
-        },
-        "zaprey": {
-            "fun": "3rd all B-sides\n3rd bny%\nSub 50 arb (49:29)\nAlso huge B-side gamer, previous bny% WR holder"
-        },
-        "carrarium": {
-            "fun": ""
-        },
-        "Boss219": {
-            "fun": "1st in both Monika 1D and 2D",
-            "any%": "28",
-            "3b": "Sub 2"
-        },
-        "Larrito": {
-            "fun": "Checkpoint Grinder TM"
-        }
-    },
+    "players": {},
     "divisions": {
         "sapphire": [
-            "DearThrowaway",
-            "Nessi",
+            "maybeGVST",
             "ad",
-            "Kerosyin"
+            "arrowbounce",
+            "Nessi <3",
+            "Epyc"
         ],
         "ruby": [
-            "Sevadra",
-            "Plixona",
-            "Goosetav",
-            "maridon",
-            "UnderTempo",
-            "Morraconda"
+            "Ninja",
+            "Tnt_go_bang",
+            "Random Name",
+            "PocketWraith",
+            "Tomycarmo3",
+            "bulletinfi",
+            "Freddie"
         ],
         "diamond": [
-            "Isaac",
             "Vapo",
-            "Tiyo",
-            "Goombs",
-            "zaprey",
-            "Boss219",
-            "kwan"
+            "rhelmot",
+            "Dragon5112",
+            "Aviary",
+            "creep.",
+            "Plixona",
+            "crab"
         ]
     },
     "brackets": {
@@ -230,20 +97,24 @@
         },
         "9": {
             "1": [
+                [8,9],
                 [1],
-                [5, 6],
-                [2, 9],
-                [4, 7],
-                [3, 8]
+                [2],
+                [3],
+                [4],
+                [5],
+                [6],
+                [7]
             ],
             "2": [
-                [0, 1],
-                [3, 4],
-                [2]
+                [1, 0],
+                [4, 5],
+                [2, 7],
+                [3, 6]
             ],
             "3": [
-                [0, 2],
-                [1]
+                [0, 1],
+                [2, 3]
             ],
             "4": [
                 [0, 1]

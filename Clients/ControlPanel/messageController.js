@@ -308,9 +308,9 @@ function sendChangeTimer() {
     }
 }
 
-function setTimer30Mins() {
+function setTimerMins(n) {
     if (!state.timer.isRunning) {
-        x.send(JSON.stringify({ type: "changeTimer", content: "0:25:0" }));
+        x.send(JSON.stringify({ type: "changeTimer", content: "0:"+n+":0" }));
     }
 }
 

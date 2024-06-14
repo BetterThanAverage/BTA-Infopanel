@@ -73,7 +73,7 @@ wsServer.on('connection', socket => {
                 }
                 state.seeds = [];
                 state.players.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-                state.timer.duration = 1500;
+                state.timer.duration = 1200;
                 state.timer.isRunning = false;
                 state.activeMatchup = -1;
                 state.matchups = [];

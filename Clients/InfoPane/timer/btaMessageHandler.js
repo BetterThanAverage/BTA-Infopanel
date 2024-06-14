@@ -21,6 +21,7 @@ const divisionTitles = {
     sapphire: "Sapphire Division",
     ruby: "Ruby Division",
     diamond: "Diamond Division",
+    
 }
 var state = {}
 var x = new WebSocket('ws://' + location.host);
